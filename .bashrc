@@ -21,7 +21,10 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-PS1='\[\033[01;34m\] 🩷 \W \[\033[01;32m\]$(git rev-parse --is-inside-work-tree &>/dev/null && echo "git:\[\033[01;33m\]($(git rev-parse --abbrev-ref HEAD))\[\033[00m\]")\[\033[00m\]\$ '
+PS1='\[\033[01;34m\] ⟶ \W \[\033[01;32m\]$( \
+  git rev-parse --is-inside-work-tree &>/dev/null && \
+  git symbolic-ref --quiet HEAD 2>/dev/null | sed "s|refs/heads/|git:\[\033[01;33m\](|;s|$|)\[\033[00m\]|" || echo "" \
+)\[\033[00m\]\$ '
 set -o vi
 
 export EDITOR='nvim'
