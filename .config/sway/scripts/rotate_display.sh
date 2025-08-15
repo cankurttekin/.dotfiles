@@ -1,11 +1,12 @@
 #!/bin/bash
 
-OUTPUT="DP-1"
+# get focused output name
+OUTPUT=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .name')
 
-# Get the current transform value
+# get the current transform value
 CURRENT=$(swaymsg -t get_outputs | jq -r ".[] | select(.name==\"$OUTPUT\") | .transform")
 
-# Determine next rotation
+# determine next rotation
 case "$CURRENT" in
   "normal") NEXT="90" ;;
   "90") NEXT="180" ;;
@@ -14,5 +15,4 @@ case "$CURRENT" in
   *) NEXT="normal" ;;
 esac
 
-# Apply the new transform
 swaymsg output "$OUTPUT" transform "$NEXT"
