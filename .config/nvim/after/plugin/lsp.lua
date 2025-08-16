@@ -53,3 +53,18 @@ lspconfig.angularls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+
+-- Go
+lspconfig.gopls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+                shadow = true,
+            },
+            staticcheck = true,
+        },
+    },
+})
