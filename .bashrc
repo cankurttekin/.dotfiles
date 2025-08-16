@@ -11,7 +11,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
-# User specific aliases and functions
+# my bashrcs in .bashrc.d
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
         if [ -f "$rc" ]; then
@@ -32,8 +32,21 @@ export VISUAL='nvim'
 export HISTSIZE=10000
 export HISTIGNORE="ls:ps:history"
 export HISTTIMEFORMAT="[%d-%m-%Y %T] "
+#HISTCONTROL=ignoredups
+export PATH=$PATH:$HOME/go/bin
 
-# aliases
+eval "$(fzf --bash)"
+
+source <(ng completion script) # Angular CLI autocompletion
+
+# Node Version Manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export PATH=~/.opencode/bin:$PATH
+
+alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
 alias vim="nvim"
 alias projects="cd ~/Documents/projects"
 alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
