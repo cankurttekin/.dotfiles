@@ -16,16 +16,26 @@ xkb_keymap {
     key <BKMR> { [ XF86Favorites ] };
     key <MAIL> { [ XF86Mail ] };
 
-    # Swap Caps Lock and Escape
-    replace key <CAPS> { [ Escape ] };        # Caps Lock -> Escape
-    replace key <ESC>  { [ Caps_Lock ] };     # Escape -> Caps Lock
+  # Swap Escape and Tilde (~)
+  replace key <ESC> { [ grave, asciitilde ] };  # Escape -> Tilde (~)
+  replace key <TLDE> { [ Escape ] };           # Tilde (~) -> Escape
 
-    # Swap Tilde (~) and Control (ctrl)
-    replace key <TLDE> { [ Control_L ] };     # Tilde (~) -> Left Control
-    replace key <LCTL> { [ asciitilde ] };    # Left Control -> Tilde (~)
+  # Swap Caps Lock and Control (ctrl:swapcaps)
+  replace key <CAPS> { [ Control_L ] };  # Caps Lock -> Left Control
+  replace key <LCTL> { [ Caps_Lock ] };  # Left Control -> Caps Lock
 
-    # Swap Left Alt and Left Super (altwin:swap_lalt_lwin)
-    replace key <LALT> { [ Super_L ] };  # Left Alt -> Left Super
-    replace key <LWIN> { [ Alt_L ] };    # Left Super -> Left Alt
+  # Swap Left Alt and Left Super (altwin:swap_lalt_lwin)
+  replace key <LALT> { [ Super_L ] };  # Left Alt -> Left Super
+  replace key <LWIN> { [ Alt_L ] };    # Left Super -> Left Alt
+
+  # swap esc and caps lock
+  # esc -> caps
+  # caps > ctrl
+  # ctrl > tilde
+  # tilde > esc
+  #replace key <CAPS> { [ Escape ] };        # Caps Lock -> Escape
+  #replace key <ESC>  { [ grave, asciitilde ] };  # Escape -> ~
+  #replace key <TLDE> { [ Control_L ] };     # ~ -> Control
   };
+
 };

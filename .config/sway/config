@@ -29,7 +29,6 @@ bindsym Print exec grim ~/Pictures/Screenshots/screenshot-$(date +%s).png
 bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(date +%s).png
 
 ## wallpaper
-#output * bg ~/Pictures/Wallpapers/collective-vision.png fill
 #output * bg  #000000 solid_color
 exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
 
