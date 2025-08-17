@@ -1,7 +1,8 @@
+-- cmp.lua
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
--- Load snippets from friendly-snippets if you want
+-- Load snippets (friendly-snippets)
 require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
@@ -13,7 +14,7 @@ cmp.setup({
 
   mapping = cmp.mapping.preset.insert({
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
+    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept selected
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -35,13 +36,41 @@ cmp.setup({
     end, { "i", "s" }),
   }),
 
+  formatting = {
+    format = function(entry, vim_item)
+      -- kind and abbreviation
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        luasnip  = "[Snip]",
+        buffer   = "[Buf]",
+        path     = "[Path]",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
     { name = "luasnip" },
-  }, {
-    { name = "buffer" },
     { name = "path" },
+    { name = "buffer" },
   }),
 })
 
+-- Cmdline completion: search `/`
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
 
+-- Cmdline completion: commands `:`
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline" },
+  }),
+})
