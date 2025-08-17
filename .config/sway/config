@@ -40,10 +40,10 @@ for_window [title="Picture-in-Picture"] floating enable
 
 ## window colors
 # focused
-client.focused #315ff3 #315ff3 #315ff3 #315ff3
+#client.focused #315ff3 #315ff3 #315ff3 #315ff3
 
 # unfocused 
-client.unfocused #000000 #000000 #888888 #323232
+#client.unfocused #000000 #000000 #888888 #323232
 
 default_border pixel 2px
 default_floating_border none
@@ -266,14 +266,14 @@ bar {
     #status_command while date +'%Y-%m-%d %X'; do sleep 1; done
     status_command ~/.config/sway/scripts/status.sh
     
-    font "FreeSans Bold"
-    height 25
+    font "FreeSans"
+    height 22 
 
     colors {
         #statusline #000000
         #background #dddddd
-        focused_workspace #315ff3 #315ff3 #f5f5f5
-	#inactive_workspace #000000 #dddddd #000000
+        #focused_workspace #315ff3 #315ff3 #f5f5f5
+        #inactive_workspace #000000 #dddddd #000000
     }
 }
 
