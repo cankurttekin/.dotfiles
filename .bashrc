@@ -21,10 +21,25 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-PS1='\[\033[01;34m\] ⟶ \W \[\033[01;32m\]$( \
+PS1='$( \
+  if git rev-parse --is-inside-work-tree &>/dev/null; then \
+    status=""; \
+    if ! git diff --quiet --ignore-submodules --; then \
+      status="\[\033[01;33m\]"; # yellow - local changes
+    elif [ "$(git rev-list --count --left-only @{u}...HEAD 2>/dev/null)" -gt 0 ]; then \
+      status="\[\033[01;32m\]"; # green - ahead
+    elif [ "$(git rev-list --count --right-only @{u}...HEAD 2>/dev/null)" -gt 0 ]; then \
+      status="\[\033[01;31m\]"; # red - behind
+    else \
+      status="\[\033[01;34m\]"; # blue - clean
+    fi; \
+    echo -n "$status"; \
+  else echo -n "\[\033[01;34m\]"; fi \
+) ⟶ \W \[\033[01;32m\]$( \
   git rev-parse --is-inside-work-tree &>/dev/null && \
   git symbolic-ref --quiet HEAD 2>/dev/null | sed "s|refs/heads/|git:\[\033[01;33m\](|;s|$|)\[\033[00m\]|" || echo "" \
 )\[\033[00m\]\$ '
+
 set -o vi
 
 export EDITOR='nvim'
