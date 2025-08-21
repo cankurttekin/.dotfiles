@@ -13,6 +13,8 @@ return require('packer').startup(function(use)
     use "rose-pine/neovim"
 	use "maxmx03/solarized.nvim"
     use "nvim-lualine/lualine.nvim"
+    use "Shatur/neovim-ayu"
+    use "bluz71/vim-moonfly-colors"
     -- use { "nvim-tree/nvim-web-devicons" }
 
     -- utilities and core
