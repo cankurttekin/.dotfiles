@@ -48,18 +48,8 @@ export HISTSIZE=10000
 export HISTIGNORE="ls:ps:history"
 export HISTTIMEFORMAT="[%d-%m-%Y %T] "
 #HISTCONTROL=ignoredups
-export PATH=$PATH:$HOME/go/bin
 
 eval "$(fzf --bash)"
-
-source <(ng completion script) # Angular CLI autocompletion
-
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-export PATH=~/.opencode/bin:$PATH
 
 alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
 alias vim="nvim"
