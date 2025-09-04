@@ -58,6 +58,7 @@ cmp.setup({
 })
 
 -- Cmdline completion: search `/`
+--[[
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
@@ -74,3 +75,4 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
+]]--
