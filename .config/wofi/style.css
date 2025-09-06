@@ -1,49 +1,58 @@
+/* General Window Styles */
 window {
-        margin: 0px;
-        font-size: 24px;
-        font-family: "DejaVu Sans";
-        border: 2px solid green;
-        background-color: white;
+    margin: 0px;
+    font-size: 24px;
+    font-family: "DejaVu Sans";
+    border: 2px solid #90a959;
+    background-color: #181818;
+    color: #d8d8d8;
 }
 
+/* Input Styles */
 #input {
-        font-family: "DejaVu Sans Medium";
-        margin: 0px;
-        border: 0px solid #0000;
-        border-radius: 0px;
-        background-color: #fdf6e3;
+    font-family: "DejaVu Sans Medium";
+    margin: 0px;
+    border: 0px solid #0000;
+    border-radius: 0px;
+    background-color: #181818;
+    color: #d8d8d8;
 }
 
+/* Inner Box Styles */
 #inner-box {
-        margin: 0px;
-        border: 0px solid #0000;
-        border-radius: 0;
-        background-color: #fdf6e3;
+    margin: 0px;
+    border: 0px solid #0000;
+    border-radius: 0;
+    background-color: #181818;
 }
 
+/* Outer Box Styles */
 #outer-box {
-        margin: 0px;
-        border: 6px solid #eee8d5;
-        background-color: #fdf6e3;
+    margin: 0px;
+    border: 6px solid #6b6b6b;
+    background-color: #181818;
 }
 
+/* Scroll Styles */
 #scroll {
-        margin: 0px;
+    margin: 0px;
 }
 
+/* Text Styles */
 #text {
-        color: #586e79;
-        margin: 0px;
-        margin-left: 4px;
+    color: #d8d8d8;
+    margin: 0px;
+    margin-left: 4px;
 }
 
+/* Entry Selected (Highlighted) Styles */
 #entry:selected {
-        background-color: #268bd2;
-        font-family: "DejaVu Sans Bold";
-        font-style: bold;
+    background-color: #6a9fb5;
+    font-family: "DejaVu Sans Bold";
+    font-style: bold;
 }
 
+/* Text Selected Styles */
 #text:selected {
-        color: white;
+    color: #f8f8f8;
 }
-
