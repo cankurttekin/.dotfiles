@@ -69,7 +69,7 @@ local servers = {
   "ts_ls",
   "jdtls",
   "angularls",
-  "gopls",
+--  "gopls",
 }
 
 for _, server in ipairs(servers) do
