@@ -91,7 +91,28 @@ get_bluetooth() {
     echo "$status$devices"
 }
 
+get_media() {
+    if command -v playerctl >/dev/null 2>&1; then
+        local status artist title
+        status=$(playerctl status 2>/dev/null)
+        if [ "$status" = "Playing" ]; then
+            artist=$(playerctl metadata artist 2>/dev/null)
+            artist=$(echo "$artist" | sed 's/ - .*//')
+            title=$(playerctl metadata title 2>/dev/null)
+            if echo "$title" | grep -qi "$artist"; then
+                echo "♫ $title"
+            else
+                echo "♫ $artist - $title"
+            fi
+        else
+            echo ""
+        fi
+    else
+        echo ""
+    fi
+}
+
 while true; do
-    echo "$(get_bluetooth)   $(get_network)   $(get_volume)   $(get_battery)   $(date +"%a, %b %e  %H:%M")"
-    sleep 60
+    echo "$(get_media)   $(get_bluetooth)   $(get_network)   $(get_volume)   $(get_battery)   $(date +"%a, %b %e  %H:%M")"
+    sleep 5
 done
