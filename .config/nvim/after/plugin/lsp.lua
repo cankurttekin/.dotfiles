@@ -25,6 +25,14 @@ local on_attach = function(client, bufnr)
   map("n", "<leader>e", vim.diagnostic.open_float, "Show diagnostic float")
   map("n", "<leader>q", vim.diagnostic.setloclist, "Diagnostics list")
 
+  -- Auto Import organize
+    map("n", "<leader>oi", function()
+        vim.lsp.buf.code_action({
+        context = { only = { "source.organizeImports" } },
+        apply = true,
+        })
+    end, "Organize Imports")
+
   -- Formatting (only if supported)
   if client.server_capabilities.documentFormattingProvider then
     map("n", "<leader>f", function()
@@ -101,3 +109,4 @@ lspconfig.gopls.setup({
     },
   },
 })
+
