@@ -29,8 +29,9 @@ bindsym Print exec grim ~/Pictures/Screenshots/screenshot-$(date +%s).png
 bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(date +%s).png
 
 ## wallpaper
-#output * bg  #000000 solid_color
-exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
+output * bg  #000000 solid_color
+#exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
+#output * bg ~/.config/sway/wallpapers/wallpaper.jpg fill
 
 # android auto head unit emulator
 #for_window [class="desktop-head-unit"] fullscreen
@@ -82,12 +83,14 @@ bindsym XF86Mail exec thunderbird
 
 
 input type:keyboard {
-  xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
+  #xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
  
   xkb_layout "us,tr"
-  xkb_file "~/.config/sway/xkb/swap.xkb"
+  #xkb_file "~/.config/sway/xkb/swap.xkb"
 }
 
+# switch keyboard layout
+bindsym Mod1+space exec swaymsg input type:keyboard xkb_switch_layout next
 
 ## brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
