@@ -28,6 +28,9 @@ bindsym Print exec grim ~/Pictures/Screenshots/screenshot-$(date +%s).png
 # area
 bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(date +%s).png
 
+# color picker
+bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
+
 ## wallpaper
 output * bg  #000000 solid_color
 #exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
@@ -215,6 +218,9 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
+
+    # Make the current window sticky
+    bindsym $mod+Shift+s sticky toggle
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
