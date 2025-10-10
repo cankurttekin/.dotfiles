@@ -112,7 +112,29 @@ get_media() {
     fi
 }
 
+
+get_cpu() {
+    local cpu
+    cpu=$(top -bn1 | grep "Cpu(s)" | awk '{usage = 100 - $8} END {printf("CPU: %.1f%%", usage)}')
+    echo "$cpu"
+}
+
+get_ram() {
+    if [ -f /proc/meminfo ]; then
+        total_kb=$(awk '/MemTotal:/ {print $2}' /proc/meminfo)
+        available_kb=$(awk '/MemAvailable:/ {print $2}' /proc/meminfo)
+        used_kb=$((total_kb - available_kb))
+
+        total_gb=$(awk "BEGIN {printf \"%.1f\", $total_kb / 1024 / 1024}")
+        used_gb=$(awk "BEGIN {printf \"%.1f\", $used_kb / 1024 / 1024}")
+
+        echo "RAM: ${used_gb}G/${total_gb}G"
+    else
+        echo "RAM: N/A"
+    fi
+}
+
 while true; do
-    echo "$(get_media)   $(get_bluetooth)   $(get_network)   $(get_volume)   $(get_battery)   $(date +"%a, %b %e  %H:%M")"
+    echo "$(get_media)   $(get_bluetooth)   $(get_network)   $(get_cpu)   $(get_ram)   $(get_volume)   $(get_battery)   $(date +"%a, %b %e  %H:%M") "
     sleep 5
 done
