@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
     -- ui and appearance
-    use "camgunz/amber"
+    -- use "camgunz/amber"
     use "ellisonleao/gruvbox.nvim"
     use "rose-pine/neovim"
 	use "maxmx03/solarized.nvim"
