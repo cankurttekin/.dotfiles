@@ -80,9 +80,4 @@ return require('packer').startup(function(use)
             end,
     })
     use "supermaven-inc/supermaven-nvim"
-    use {
-            "yetone/avante.nvim",
-            branch = "main",
-            run = "make"
-    }
 end)
