@@ -1,0 +1,3 @@
+alias buds="bluetooth on && sleep 2 && bluetoothctl connect MACADDRESS && sleep 2 && pactl set-default-sink bluez_output.MACADDRESS.1"
+alias wakehomelab="wol ADDRESS"
+alias killhomelab="ssh -t user@host 'sudo shutdown -h now'"

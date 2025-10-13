@@ -16,4 +16,3 @@ init.vim.bak
 .session
 **/.local/share/nvim/history
 **/.cache/
-.bashrc.d
