@@ -1,8 +1,5 @@
-# config for sway
-# ~/.config/sway/config
-# Read `man 5 sway` for a complete reference.
+# sway configuration `man 5 sway`
 
-## variables
 # mod key Mod4-Super, Mod1-Alt
 set $mod Mod4
 
@@ -34,20 +31,12 @@ bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[
 ## wallpaper
 output * bg  #000000 solid_color
 #exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
-#output * bg ~/.config/sway/wallpapers/wallpaper.jpg fill
 
-# android auto head unit emulator
+## android auto head unit emulator
 #for_window [class="desktop-head-unit"] fullscreen
 
 ## floating window on pip
 for_window [title="Picture-in-Picture"] floating enable
-
-## window colors
-# focused
-#client.focused #315ff3 #315ff3 #315ff3 #315ff3
-
-# unfocused 
-#client.unfocused #000000 #000000 #888888 #323232
 
 default_border pixel 2px
 default_floating_border none
@@ -61,10 +50,12 @@ exec swayidle -w \
          timeout 210 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -F -c 000000' 
 
+# prevent idle when fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
 
 ## input configuration
+## swaymsg -t get_inputs -- `man 5 sway-input`
 # touchpad
 input type:touchpad {
     dwt enabled
@@ -77,13 +68,12 @@ input type:touchpad {
 ## keyboard
 # Microsoft Natural Ergonomic Keyboard 4000
 # Favorite keys at the top center (1,2,3,4,5)
-bindsym F14 exec wifi toggle
-bindsym F15 exec bluetooth toggle
-bindsym F16 exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
-bindsym F17 exec systemctl suspend
-bindsym F18 exec wofi --show run
-bindsym XF86Mail exec thunderbird
-
+#bindsym F14 exec wifi toggle
+#bindsym F15 exec bluetooth toggle
+#bindsym F16 exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
+#bindsym F17 exec systemctl suspend
+#bindsym F18 exec wofi --show run
+#bindsym XF86Mail exec thunderbird
 
 input type:keyboard {
   #xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
@@ -92,14 +82,14 @@ input type:keyboard {
   #xkb_file "~/.config/sway/xkb/swap.xkb"
 }
 
-# switch keyboard layout
+# switch layout
 bindsym Mod1+space exec swaymsg input type:keyboard xkb_switch_layout next
 
-## brightness
+# brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 
-# volume, media keys
+# volume and media
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.2
 bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.2
@@ -113,7 +103,7 @@ bindsym XF86AudioStop exec playerctl stop
 bindsym $mod+m output "eDP-1" toggle
 
 ## external display configuration for 2k 100Hz monitor
-# this may change
+# output name may change but oh
 output "DP-3" {
     mode 2560x1440@100Hz
     scale 1
@@ -121,10 +111,6 @@ output "DP-3" {
 
 # rotate display
 bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh 
-
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
     # Start a terminal
@@ -136,11 +122,6 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh
     # Start launcher
     bindsym $mod+d exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
     floating_modifier $mod normal
 
     # Reload the configuration file
@@ -148,33 +129,21 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway, this will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
+
 # Moving around:
-#
-    # Move your focus around
+    # Move focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
+    # Move the focused window
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
+
 # Workspaces:
-#
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -197,11 +166,8 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
+
 # Layout stuff:
-#
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -227,9 +193,8 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-#
+
 # Scratchpad:
-#
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -239,9 +204,8 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
+
 # Resizing containers:
-#
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -252,41 +216,19 @@ mode "resize" {
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+# Status Bar:`man 5 sway-bar`
 bindsym $mod+q exec "swaymsg bar mode toggle"
 bar {
-    position bottom
-    #workspace_min_width 25px
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %X'; do sleep 1; done
     status_command ~/.config/sway/scripts/status.sh
     
     font "FreeSans"
     height 22 
-
-    colors {
-        #statusline #000000
-        #background #dddddd
-        #focused_workspace #315ff3 #315ff3 #f5f5f5
-        #inactive_workspace #000000 #dddddd #000000
-    }
 }
 
 include /etc/sway/config.d/*
