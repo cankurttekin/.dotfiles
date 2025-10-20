@@ -102,6 +102,19 @@ bindsym XF86AudioStop exec playerctl stop
 # toggle laptop internal display
 bindsym $mod+m output "eDP-1" toggle
 
+# lid switch
+bindswitch lid:off exec swaymsg output eDP-1 disable
+bindswitch lid:on exec swaymsg output eDP-1 enable
+
+# auto rotate display
+exec_always ~/.config/sway/scripts/auto-rotate.sh &
+
+# Tablet mode
+bindswitch tablet:on exec /opt/wvkbd/wvkbd-mobintl &
+
+# Hide keyboard when leaving tablet mode
+bindswitch tablet:off exec pkill -x wvkbd-mobintl
+
 ## external display configuration for 2k 100Hz monitor
 # output name may change but oh
 output "DP-3" {
@@ -110,7 +123,7 @@ output "DP-3" {
 }
 
 # rotate display
-bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate_display.sh 
+bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate-display.sh 
 
 ### Key bindings
     # Start a terminal
