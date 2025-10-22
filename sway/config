@@ -29,7 +29,7 @@ bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(
 bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
 
 ## wallpaper
-output * bg  #000000 solid_color
+output * bg #000000 solid_color
 #exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
 
 ## android auto head unit emulator
@@ -62,7 +62,7 @@ input type:touchpad {
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
-    pointer_accel 0.4
+    pointer_accel 0.3
 }
 
 ## keyboard
@@ -180,7 +180,7 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate-display.sh
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
 
-# Layout stuff:
+# Layout:
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -220,10 +220,6 @@ bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate-display.sh
 
 # Resizing containers:
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
@@ -241,7 +237,7 @@ bar {
     status_command ~/.config/sway/scripts/status.sh
     
     font "FreeSans"
-    height 22 
+    height 20 
 }
 
 include /etc/sway/config.d/*
