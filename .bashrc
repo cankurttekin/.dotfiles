@@ -40,9 +40,9 @@ set -o vi
 export EDITOR='nvim'
 export VISUAL='nvim'
 export HISTSIZE=10000
-export HISTIGNORE="ls:ps:history"
-export HISTTIMEFORMAT="[%d-%m-%Y %T] "
-export HISTCONTROL=ignoredups
+#export HISTIGNORE="ls:ps:history"
+export HISTTIMEFORMAT="%s "
+#export HISTCONTROL=ignoredups
 
 eval "$(fzf --bash)"
 
@@ -51,4 +51,4 @@ alias vim="nvim"
 alias projects="cd ~/Documents/projects"
 alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
 alias whoami="whoami && curl ident.me && echo"
-alias rm="rm -i"
+#alias rm="rm -i"

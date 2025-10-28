@@ -8,9 +8,11 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
     -- ui and appearance
-    -- use "camgunz/amber"
+    use { "catppuccin/nvim", as = "catppuccin"}
     use "ellisonleao/gruvbox.nvim"
     use "rose-pine/neovim"
+    use 'rktjmp/lush.nvim'
+    use 'loganswartz/selenized.nvim'
 	use "maxmx03/solarized.nvim"
     use "nvim-lualine/lualine.nvim"
     use "Shatur/neovim-ayu"
