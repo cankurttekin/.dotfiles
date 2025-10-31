@@ -1,11 +1,12 @@
 git
 curl
+stow
 wget
+htop
 neovim
 tmux
 fzf
 bat
-htop
 man-db
 tldr
 unzip

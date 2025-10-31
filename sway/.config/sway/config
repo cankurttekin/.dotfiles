@@ -109,11 +109,11 @@ bindswitch lid:on exec swaymsg output eDP-1 enable
 # auto rotate display
 exec_always ~/.config/sway/scripts/auto-rotate.sh &
 
-# Tablet mode
-bindswitch tablet:on exec /opt/wvkbd/wvkbd-mobintl &
+# When tablet mode on show on screen keyboard
+bindswitch tablet:on exec wvkbd -L 250 &
 
 # Hide keyboard when leaving tablet mode
-bindswitch tablet:off exec pkill -x wvkbd-mobintl
+bindswitch tablet:off exec pkill -x wvkbd
 
 ## external display configuration for 2k 100Hz monitor
 # output name may change but oh
