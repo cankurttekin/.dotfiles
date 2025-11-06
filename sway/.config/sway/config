@@ -1,21 +1,22 @@
 # sway configuration `man 5 sway`
 
-# mod key Mod4-Super, Mod1-Alt
+## mod key
 set $mod Mod4
 
-# vim like home row direction keys
+## vim like nav
 set $left h
 set $down j
 set $up k
 set $right l
 
-## terminal emulator
+## terminal
 set $term foot
 
-## application launcher
+## launcher
 set $menu wofi --show drun -i --width=40% --height=43% | xargs swaymsg exec --
 
-## LXQT polkit agent for perms
+## policy agent
+# LXQT
 #exec /usr/libexec/lxqt-policykit-agent
 #for_window [app_id="lxqt-policykit-agent"] floating enable
 
@@ -25,23 +26,20 @@ bindsym Print exec grim ~/Pictures/Screenshots/screenshot-$(date +%s).png
 # area
 bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(date +%s).png
 
-# color picker
+## color picker
 bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
 
 ## wallpaper
 output * bg #000000 solid_color
 #exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
 
-## android auto head unit emulator
-#for_window [class="desktop-head-unit"] fullscreen
-
 ## floating window on pip
 for_window [title="Picture-in-Picture"] floating enable
 
+## borders
 default_border pixel 2px
 default_floating_border none
 titlebar_padding 1
-
 titlebar_border_thickness 0
 
 ## idle
@@ -49,13 +47,11 @@ exec swayidle -w \
          timeout 180 'swaylock -f -c 000000' \
          timeout 210 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
          before-sleep 'swaylock -f -F -c 000000' 
-
-# prevent idle when fullscreen
+# prevent on fullscreen
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
 
-## input configuration
-## swaymsg -t get_inputs -- `man 5 sway-input`
+## inputs swaymsg -t get_inputs `man 5 sway-input`
 # touchpad
 input type:touchpad {
     dwt enabled
@@ -66,24 +62,15 @@ input type:touchpad {
 }
 
 ## keyboard
-# Microsoft Natural Ergonomic Keyboard 4000
-# Favorite keys at the top center (1,2,3,4,5)
-#bindsym F14 exec wifi toggle
-#bindsym F15 exec bluetooth toggle
-#bindsym F16 exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
-#bindsym F17 exec systemctl suspend
-#bindsym F18 exec wofi --show run
-#bindsym XF86Mail exec thunderbird
-
 input type:keyboard {
-  #xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
- 
-  xkb_layout "us,tr"
-  #xkb_file "~/.config/sway/xkb/swap.xkb"
-}
+    xkb_layout "us,tr"
 
-# switch layout
-bindsym Mod1+space exec swaymsg input type:keyboard xkb_switch_layout next
+    #xkb_file "~/.config/sway/xkb/swap.xkb"
+    #xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
+
+    # switch layout
+    xkb_options grp:alt_shift_toggle
+}
 
 # brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
@@ -98,25 +85,32 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 
+# Custom favorite keys on microsoft natural ergonomic 4000
+#bindsym F14 exec wifi toggle
+#bindsym F15 exec bluetooth toggle
+#bindsym F16 exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
+#bindsym F17 exec systemctl suspend
+#bindsym F18 exec wofi --show run
+#bindsym XF86Mail exec thunderbird
+
 ## display
-# toggle laptop internal display
+# toggle laptop display
 bindsym $mod+m output "eDP-1" toggle
 
-# lid switch
-bindswitch lid:off exec swaymsg output eDP-1 disable
-bindswitch lid:on exec swaymsg output eDP-1 enable
-
-# auto rotate display
+# tablet mode specific settings
+# auto rotate 
 exec_always ~/.config/sway/scripts/auto-rotate.sh &
 
-# When tablet mode on show on screen keyboard
+# on screen keyboard
 bindswitch tablet:on exec wvkbd -L 250 &
-
-# Hide keyboard when leaving tablet mode
 bindswitch tablet:off exec pkill -x wvkbd
 
-## external display configuration for 2k 100Hz monitor
-# output name may change but oh
+# lid switch
+#bindswitch lid:off exec swaymsg output eDP-1 disable
+#bindswitch lid:on exec swaymsg output eDP-1 enable
+
+# external display
+# not the cleanest, output name may change but works for now
 output "DP-3" {
     mode 2560x1440@100Hz
     scale 1
@@ -236,7 +230,7 @@ bindsym $mod+q exec "swaymsg bar mode toggle"
 bar {
     status_command ~/.config/sway/scripts/status.sh
     
-    font "FreeSans"
+    font "Liberation Mono Normal 14"
     height 20 
 }
 

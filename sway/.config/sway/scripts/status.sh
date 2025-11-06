@@ -5,8 +5,9 @@ battery() {
     read -r cap < /sys/class/power_supply/BAT0/capacity
     read -r status < /sys/class/power_supply/BAT0/status
     case "$status" in
-        Charging)    symbol="+" ;;
-        Discharging) symbol="-" ;;
+        Charging)       symbol="▲" ;;
+        Discharging)    symbol="▼" ;;
+        'Not charging') symbol="◆" ;;
     esac
     echo "BAT: ${cap}%${symbol}"
 }
@@ -20,7 +21,8 @@ volume() {
 network() {
     WIFI_INFO="WLAN: Off"
     ETH_INFO=""
-    IP_ADDR="IP: N/A"
+    IP_ADDR=""
+    INTERFACE=""
 
     if command -v nmcli >/dev/null 2>&1; then
         CONNECTIONS=$(nmcli -t -f TYPE,STATE,DEVICE,CONNECTION dev)
@@ -39,33 +41,39 @@ network() {
 
                     # Get IP address for Wi-Fi
                     IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                    [ -n "$IP" ] && IP_ADDR="IP: $IP"
+                    [ -n "$IP" ] && IP_ADDR="$IP"
+                    
+                    INTERFACE="$DEVICE"
                 elif [ "$STATE" = "disconnected" ]; then
                     WIFI_INFO="WLAN: On"
                 else
                     WIFI_INFO="WLAN: Off"
-            fi
-        elif [ "$TYPE" = "ethernet" ]; then
-            ETH_STATUS=$(cat /sys/class/net/"$DEVICE"/operstate 2>/dev/null)
-            ETH_SPEED=$(cat /sys/class/net/"$DEVICE"/speed 2>/dev/null)
-            if [ "$ETH_STATUS" = "up" ]; then
-                ETH_INFO="ETH: Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
+                fi
+            elif [ "$TYPE" = "ethernet" ]; then
+                ETH_STATUS=$(cat /sys/class/net/"$DEVICE"/operstate 2>/dev/null)
+                ETH_SPEED=$(cat /sys/class/net/"$DEVICE"/speed 2>/dev/null)
+                if [ "$ETH_STATUS" = "up" ]; then
+                    ETH_INFO="ETH: Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
 
-                # Get IP address for Ethernet
-                IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                [ -n "$IP" ] && IP_ADDR="IP: $IP"
-            else
-                ETH_INFO="ETH: Down"
+                    # Get IP address for Ethernet
+                    IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+                    [ -n "$IP" ] && IP_ADDR="$IP"
+
+                    INTERFACE="$DEVICE"
+                else
+                    ETH_INFO="ETH: Down"
+                fi
             fi
-    fi
-done <<< "$CONNECTIONS"
-[ -z "$ETH_INFO" ] && ETH_INFO="ETH: Down"
-else
-    WIFI_INFO="WLAN: Unknown"
-    ETH_INFO="ETH: Unknown"
+        done <<< "$CONNECTIONS"
+        
+        # Default message if no interface is up
+        [ -z "$ETH_INFO" ] && ETH_INFO="ETH: Down"
+    else
+        WIFI_INFO="WLAN: Unknown"
+        ETH_INFO="ETH: Unknown"
     fi
 
-    echo "$WIFI_INFO   $ETH_INFO   $IP_ADDR"
+    echo "$WIFI_INFO $ETH_INFO $INTERFACE $IP_ADDR"
 }
 
 bluetooth() {
@@ -112,7 +120,6 @@ media() {
     fi
 }
 
-
 cpu() {
     local cpu
     cpu=$(top -bn1 | grep "Cpu(s)" | awk '{usage = 100 - $8} END {printf("CPU: %.1f%%", usage)}')
@@ -134,6 +141,6 @@ ram() {
 }
 
 while true; do
-    echo "$(media)   $(bluetooth)   $(network)   $(cpu)   $(ram)   $(volume)   $(battery)   $(date +"%a, %b %e  %H:%M")"
+    echo "$(bluetooth) $(network) $(cpu) $(ram) $(volume) $(battery) $(date +"%a,%b%e %H:%M")"
     sleep 5
 done

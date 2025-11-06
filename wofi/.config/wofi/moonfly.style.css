@@ -11,8 +11,8 @@ window {
     margin: 0px;
     border: 0px solid #0000;
     border-radius: 6px;
-    background-color: #5b6078;
-    color: #cad3f5;
+    background-color: #80A0FF;
+    color: #ffffff;
 }
 
 #inner-box {
@@ -20,13 +20,13 @@ window {
     margin: 0px;
     border: 0px solid #0000;
     border-radius: 0;
-    background-color: #24273a;
+    background-color: #080808;
 }
 
 #outer-box {
     margin: 0px;
-    border: 3px solid #181926;
-    background-color: #181926;
+    border: 3px solid #6b6b6b;
+    background-color: #080808;
     border-radius: 0px;
 }
 
@@ -35,17 +35,17 @@ window {
 }
 
 #text {
-    color: #b8c0e0;
+    color: #d8d8d8;
     margin: 0px;
     margin-left: 2px;
 }
 
 #entry:selected {
-    background-color: #6e738d;
+    background-color: #2B2B2B;
     font-family: "Liberation Mono";
     border-radius: 0px;
 }
 
 #text:selected {
-    color: #a6da95;
+    color: #ffffff;
 }

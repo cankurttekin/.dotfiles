@@ -19,11 +19,11 @@ unset rc
 PS1='$( \
   if git rev-parse --is-inside-work-tree &>/dev/null; then \
     status=""; \
-    if ! git diff --quiet --ignore-submodules --; then \
+    if ! git diff --quiet --ignore-submodules -- &>/dev/null; then \
       status="\[\033[01;33m\]"; # yellow - local changes
-    elif [ "$(git rev-list --count --left-only @{u}...HEAD 2>/dev/null)" -gt 0 ]; then \
+    elif [ "$(git rev-list --count --left-only @{u}...HEAD 2>/dev/null || echo 0)" -gt 0 ]; then \
       status="\[\033[01;32m\]"; # green - ahead
-    elif [ "$(git rev-list --count --right-only @{u}...HEAD 2>/dev/null)" -gt 0 ]; then \
+    elif [ "$(git rev-list --count --right-only @{u}...HEAD 2>/dev/null || echo 0)" -gt 0 ]; then \
       status="\[\033[01;31m\]"; # red - behind
     else \
       status="\[\033[01;34m\]"; # blue - clean
@@ -31,8 +31,10 @@ PS1='$( \
     echo -n "$status"; \
   else echo -n "\[\033[01;34m\]"; fi \
 ) ⤳ \W \[\033[01;32m\]$( \
-  git rev-parse --is-inside-work-tree &>/dev/null && \
-  git symbolic-ref --quiet HEAD 2>/dev/null | sed "s|refs/heads/|git:\[\033[01;33m\](|;s|$|)\[\033[00m\]|" || echo "" \
+  if git rev-parse --is-inside-work-tree &>/dev/null; then \
+    git symbolic-ref --quiet HEAD 2>/dev/null | \
+    sed "s|refs/heads/|git:\[\033[01;33m\](|;s|$|)\[\033[00m\]|"; \
+  fi \
 )\[\033[00m\]\$ '
 
 set -o vi
@@ -40,7 +42,7 @@ set -o vi
 export EDITOR='nvim'
 export VISUAL='nvim'
 export HISTSIZE=10000
-#export HISTIGNORE="ls:ps:history"
+export HISTIGNORE="ls:ps:history"
 export HISTTIMEFORMAT="%s "
 #export HISTCONTROL=ignoredups
 
@@ -52,3 +54,6 @@ alias projects="cd ~/Documents/projects"
 alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
 alias whoami="whoami && curl ident.me && echo"
 #alias rm="rm -i"
+
+bind 'TAB:menu-complete'
+bind 'set show-all-if-ambiguous on'
