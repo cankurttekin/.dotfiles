@@ -9,17 +9,17 @@ battery() {
         Discharging)    symbol="▼" ;;
         'Not charging') symbol="◆" ;;
     esac
-    echo "BAT: ${cap}%${symbol}"
+    echo "BAT:${cap}%${symbol}"
 }
 
 volume() {
     local vol
     vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null | awk '{print int($2*100)}')
-    [ -n "$vol" ] && echo "VOL: $vol" || echo "VOL: N/A"
+    [ -n "$vol" ] && echo "VOL:$vol" || echo "VOL:N/A"
 }
 
 network() {
-    WIFI_INFO="WLAN: Off"
+    WIFI_INFO="WLAN:Off"
     ETH_INFO=""
     IP_ADDR=""
     INTERFACE=""
@@ -37,7 +37,7 @@ network() {
                     SIGNAL=$(nmcli -t -f IN-USE,SIGNAL dev wifi | grep '^\*' | cut -d: -f2)
                     SPEED=$(iw dev "$DEVICE" link | grep -oP 'tx bitrate: \K[^\s]+')
                     [ -n "$SPEED" ] && SPEED="${SPEED}Mbps"
-                    WIFI_INFO="WLAN: $NAME ($SIGNAL%)${SPEED:+ $SPEED}"
+                    WIFI_INFO="WLAN:$NAME ($SIGNAL%)${SPEED:+ $SPEED}"
 
                     # Get IP address for Wi-Fi
                     IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
@@ -45,15 +45,15 @@ network() {
                     
                     INTERFACE="$DEVICE"
                 elif [ "$STATE" = "disconnected" ]; then
-                    WIFI_INFO="WLAN: On"
+                    WIFI_INFO="WLAN:On"
                 else
-                    WIFI_INFO="WLAN: Off"
+                    WIFI_INFO="WLAN:Off"
                 fi
             elif [ "$TYPE" = "ethernet" ]; then
                 ETH_STATUS=$(cat /sys/class/net/"$DEVICE"/operstate 2>/dev/null)
                 ETH_SPEED=$(cat /sys/class/net/"$DEVICE"/speed 2>/dev/null)
                 if [ "$ETH_STATUS" = "up" ]; then
-                    ETH_INFO="ETH: Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
+                    ETH_INFO="ETH:Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
 
                     # Get IP address for Ethernet
                     IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
@@ -61,27 +61,27 @@ network() {
 
                     INTERFACE="$DEVICE"
                 else
-                    ETH_INFO="ETH: Down"
+                    ETH_INFO="ETH:Down"
                 fi
             fi
         done <<< "$CONNECTIONS"
         
         # Default message if no interface is up
-        [ -z "$ETH_INFO" ] && ETH_INFO="ETH: Down"
+        [ -z "$ETH_INFO" ] && ETH_INFO="ETH:Down"
     else
-        WIFI_INFO="WLAN: Unknown"
-        ETH_INFO="ETH: Unknown"
+        WIFI_INFO="WLAN:Unknown"
+        ETH_INFO="ETH:Unknown"
     fi
 
     echo "$WIFI_INFO $ETH_INFO $INTERFACE $IP_ADDR"
 }
 
 bluetooth() {
-    local status="BT: Off" devices=""
+    local status="BT:Off" devices=""
 
     if command -v bluetoothctl >/dev/null 2>&1; then
         if bluetoothctl show | grep -q "Powered: yes"; then
-            status="BT: On"
+            status="BT:On"
             mapfile -t macs < <(bluetoothctl devices | awk '{print $2}')
             for mac in "${macs[@]}"; do
                 if bluetoothctl info "$mac" | grep -q "Connected: yes"; then
@@ -93,7 +93,7 @@ bluetooth() {
             devices=${devices:+($devices)}  # Wrap in parentheses if non-empty
         fi
     else
-        status="BT: NULL"
+        status="BT:NULL"
     fi
 
     echo "$status $devices"
@@ -134,13 +134,13 @@ ram() {
         used_kb=$((total_kb - available_kb))
         total_gb=$(awk "BEGIN {printf \"%.1f\", $total_kb / 1024 / 1024}")
         used_gb=$(awk "BEGIN {printf \"%.1f\", $used_kb / 1024 / 1024}")
-        echo "RAM: ${used_gb}G/${total_gb}G"
+        echo "RAM:${used_gb}G/${total_gb}G"
     else
-        echo "RAM: N/A"
+        echo "RAM:N/A"
     fi
 }
 
 while true; do
-    echo "$(bluetooth) $(network) $(cpu) $(ram) $(volume) $(battery) $(date +"%a,%b%e %H:%M")"
+    echo "$(bluetooth) $(network) $(cpu) $(ram) $(volume) $(battery) $(date +"%a, %b %e %H:%M")"
     sleep 5
 done

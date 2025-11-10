@@ -15,3 +15,6 @@
 This repository contains my personal configurations for essential tools i use daily. 
 I prefer minimal configurations focused on speed and low resource usage. 
 Constantly evolving as I discover more efficient or elegant ways to interact with my system so it's never finished.
+
+## tmux-sessionizer
+https://github.com/ThePrimeagen/tmux-sessionizer
