@@ -16,26 +16,38 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-PS1='$( \
-  if git rev-parse --is-inside-work-tree &>/dev/null; then \
-    status=""; \
-    if ! git diff --quiet --ignore-submodules -- &>/dev/null; then \
-      status="\[\033[01;33m\]"; # yellow - local changes
-    elif [ "$(git rev-list --count --left-only @{u}...HEAD 2>/dev/null || echo 0)" -gt 0 ]; then \
-      status="\[\033[01;32m\]"; # green - ahead
-    elif [ "$(git rev-list --count --right-only @{u}...HEAD 2>/dev/null || echo 0)" -gt 0 ]; then \
-      status="\[\033[01;31m\]"; # red - behind
-    else \
-      status="\[\033[01;34m\]"; # blue - clean
-    fi; \
-    echo -n "$status"; \
-  else echo -n "\[\033[01;34m\]"; fi \
-) ⤳ \W \[\033[01;32m\]$( \
-  if git rev-parse --is-inside-work-tree &>/dev/null; then \
-    git symbolic-ref --quiet HEAD 2>/dev/null | \
-    sed "s|refs/heads/|git:\[\033[01;33m\](|;s|$|)\[\033[00m\]|"; \
-  fi \
-)\[\033[00m\]\$ '
+RESET="\[\e[0m\]"
+BLUE="\[\e[34m\]"
+CYAN="\[\e[36m\]"
+YELLOW="\[\e[33m\]"
+GREEN="\[\e[32m\]"
+MAGENTA="\[\e[35m\]"
+
+parse_git() {
+  git rev-parse --is-inside-work-tree &>/dev/null || return
+
+  # branch or short hash
+  local branch
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+  [ -z "$branch" ] && branch=":unknown"
+
+  # ahead/behind
+  local ahead behind
+  ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
+  behind=$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0)
+  local arrows=""
+  [ "$ahead" -gt 0 ] && arrows="↑$ahead"
+  [ "$behind" -gt 0 ] && arrows="${arrows}↓$behind"
+
+  # clean/dirty
+  local dirty=""
+  git diff --quiet --ignore-submodules HEAD &>/dev/null || dirty="✚"
+  [ -z "$dirty" ] && dirty="✔"
+
+  echo " ${MAGENTA}git:${RESET}(${CYAN}${branch}${RESET}${YELLOW}${arrows:+$arrows}${RESET}|${GREEN}${dirty}${RESET})"
+}
+
+PROMPT_COMMAND='PS1=" ${BLUE}⤳  ${PWD##*/}${RESET}$(parse_git) \$ "'
 
 set -o vi
 
@@ -48,12 +60,11 @@ export HISTTIMEFORMAT="%s "
 
 eval "$(fzf --bash)"
 
-alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
-alias vim="nvim"
-alias projects="cd ~/Documents/projects"
-alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
-alias whoami="whoami && curl ident.me && echo"
-#alias rm="rm -i"
-
 bind 'TAB:menu-complete'
 bind 'set show-all-if-ambiguous on'
+
+alias vim="nvim"
+alias whoami="whoami && curl ident.me && echo"
+alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
+alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
+#alias rm="rm -i"

@@ -9,8 +9,8 @@ window {
 #input {
     font-family: "Liberation Mono";
     margin: 0px;
-    border: 0px solid #0000;
-    border-radius: 6px;
+    border: 0px solid #000;
+    border-radius: 0px;
     background-color: #5b6078;
     color: #cad3f5;
 }
@@ -18,14 +18,14 @@ window {
 #inner-box {
     border-radius: 0px;
     margin: 0px;
-    border: 0px solid #0000;
+    border: 0px solid #000;
     border-radius: 0;
     background-color: #24273a;
 }
 
 #outer-box {
     margin: 0px;
-    border: 3px solid #181926;
+    border: 6px solid #181926;
     background-color: #181926;
     border-radius: 0px;
 }
@@ -43,6 +43,7 @@ window {
 #entry:selected {
     background-color: #6e738d;
     font-family: "Liberation Mono";
+    font-weight: bold;
     border-radius: 0px;
 }
 

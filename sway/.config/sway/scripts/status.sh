@@ -19,9 +19,9 @@ volume() {
 }
 
 network() {
-    WIFI_INFO="WLAN:Off"
-    ETH_INFO=""
-    IP_ADDR=""
+    WIFI="WLAN:Off"
+    ETH=""
+    IP=""
     INTERFACE=""
 
     if command -v nmcli >/dev/null 2>&1; then
@@ -37,43 +37,43 @@ network() {
                     SIGNAL=$(nmcli -t -f IN-USE,SIGNAL dev wifi | grep '^\*' | cut -d: -f2)
                     SPEED=$(iw dev "$DEVICE" link | grep -oP 'tx bitrate: \K[^\s]+')
                     [ -n "$SPEED" ] && SPEED="${SPEED}Mbps"
-                    WIFI_INFO="WLAN:$NAME ($SIGNAL%)${SPEED:+ $SPEED}"
+                    WIFI="WLAN:$NAME ($SIGNAL%)${SPEED:+ $SPEED}"
 
                     # Get IP address for Wi-Fi
                     IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                    [ -n "$IP" ] && IP_ADDR="$IP"
+                    [ -n "$IP" ] && IP="$IP"
                     
                     INTERFACE="$DEVICE"
                 elif [ "$STATE" = "disconnected" ]; then
-                    WIFI_INFO="WLAN:On"
+                    WIFI="WLAN:On"
                 else
-                    WIFI_INFO="WLAN:Off"
+                    WIFI="WLAN:Off"
                 fi
             elif [ "$TYPE" = "ethernet" ]; then
                 ETH_STATUS=$(cat /sys/class/net/"$DEVICE"/operstate 2>/dev/null)
                 ETH_SPEED=$(cat /sys/class/net/"$DEVICE"/speed 2>/dev/null)
                 if [ "$ETH_STATUS" = "up" ]; then
-                    ETH_INFO="ETH:Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
+                    ETH="ETH:Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
 
                     # Get IP address for Ethernet
                     IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                    [ -n "$IP" ] && IP_ADDR="$IP"
+                    [ -n "$IP" ] && IP="$IP"
 
                     INTERFACE="$DEVICE"
                 else
-                    ETH_INFO="ETH:Down"
+                    ETH="ETH:Down"
                 fi
             fi
         done <<< "$CONNECTIONS"
         
         # Default message if no interface is up
-        [ -z "$ETH_INFO" ] && ETH_INFO="ETH:Down"
+        [ -z "$ETH" ] && ETH="ETH:Down"
     else
-        WIFI_INFO="WLAN:Unknown"
-        ETH_INFO="ETH:Unknown"
+        WIFI="WLAN:Unknown"
+        ETH="ETH:Unknown"
     fi
 
-    echo "$WIFI_INFO $ETH_INFO $INTERFACE $IP_ADDR"
+    echo "$WIFI $ETH $INTERFACE $IP"
 }
 
 bluetooth() {
@@ -96,7 +96,7 @@ bluetooth() {
         status="BT:NULL"
     fi
 
-    echo "$status $devices"
+    echo "$status$devices"
 }
 
 media() {
