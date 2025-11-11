@@ -26,28 +26,30 @@ MAGENTA="\[\e[35m\]"
 parse_git() {
   git rev-parse --is-inside-work-tree &>/dev/null || return
 
-  # branch or short hash
-  local branch
+  local branch ahead behind arrows dirty
   branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
   [ -z "$branch" ] && branch=":unknown"
 
-  # ahead/behind
-  local ahead behind
   ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
   behind=$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0)
-  local arrows=""
   [ "$ahead" -gt 0 ] && arrows="↑$ahead"
   [ "$behind" -gt 0 ] && arrows="${arrows}↓$behind"
 
-  # clean/dirty
-  local dirty=""
   git diff --quiet --ignore-submodules HEAD &>/dev/null || dirty="✚"
   [ -z "$dirty" ] && dirty="✔"
 
   echo " ${MAGENTA}git:${RESET}(${CYAN}${branch}${RESET}${YELLOW}${arrows:+$arrows}${RESET}|${GREEN}${dirty}${RESET})"
 }
 
-PROMPT_COMMAND='PS1=" ${BLUE}⤳  ${PWD##*/}${RESET}$(parse_git) \$ "'
+get_dir() {
+  if [ "$PWD" = "$HOME" ]; then
+    echo "~"
+  else
+    echo "${PWD##*/}"
+  fi
+}
+
+PROMPT_COMMAND='PS1=" ${BLUE}⤳ $(get_dir)${RESET}$(parse_git) \$ "'
 
 set -o vi
 
