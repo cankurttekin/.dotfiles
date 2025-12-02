@@ -1,9 +1,10 @@
 # sway configuration `man 5 sway`
 
+### Variables
 ## mod key
 set $mod Mod4
 
-## vim like nav
+## home row keys
 set $left h
 set $down j
 set $up k
@@ -15,110 +16,11 @@ set $term foot
 ## launcher
 set $menu wofi --show drun -i --width=40% --height=43% | xargs swaymsg exec --
 
-## policy agent
-# LXQT
-#exec /usr/libexec/lxqt-policykit-agent
-#for_window [app_id="lxqt-policykit-agent"] floating enable
-
-## screenshot
-# fullscreen
-bindsym Print exec grim ~/Pictures/Screenshots/screenshot-$(date +%s).png
-# area
-bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/screenshot-$(date +%s).png
-
-## color picker
-bindsym $mod+Shift+p exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy 
-
-## wallpaper
-output * bg #000000 solid_color
-#exec_always --no-startup-id ~/.config/sway/scripts/wikiart-wallpaper-imagemagick.sh >> ~/.config/sway/wallpaper.log 2>&1
-
-## floating window on pip
-for_window [title="Picture-in-Picture"] floating enable
-
 ## borders
 default_border pixel 2px
 default_floating_border none
 titlebar_padding 1
 titlebar_border_thickness 0
-
-## idle
-exec swayidle -w \
-         timeout 180 'swaylock -f -c 000000' \
-         timeout 210 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -F -c 000000' 
-# prevent on fullscreen
-for_window [class=".*"] inhibit_idle fullscreen
-for_window [app_id=".*"] inhibit_idle fullscreen
-
-## inputs swaymsg -t get_inputs `man 5 sway-input`
-# touchpad
-input type:touchpad {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    pointer_accel 0.3
-}
-
-## keyboard
-input type:keyboard {
-    xkb_layout "us,tr"
-
-    #xkb_file "~/.config/sway/xkb/swap.xkb"
-    #xkb_options "ctrl:swapcaps,altwin:swap_lalt_lwin"
-
-    # switch layout
-    xkb_options grp:alt_shift_toggle
-}
-
-# brightness
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-
-# volume and media
-bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1.2
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.2
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioStop exec playerctl stop
-
-# Custom favorite keys on microsoft natural ergonomic 4000
-#bindsym F14 exec wifi toggle
-#bindsym F15 exec bluetooth toggle
-#bindsym F16 exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
-#bindsym F17 exec systemctl suspend
-#bindsym F18 exec wofi --show run
-#bindsym XF86Mail exec thunderbird
-
-## display
-# toggle laptop display
-bindsym --locked $mod+m output "eDP-1" toggle
-
-## 2in1 laptop specific settings
-# auto rotate 
-#exec_always ~/.config/sway/scripts/auto-rotate.sh &
-bindswitch lid:on exec ~/.config/sway/scripts/auto-rotate.sh &
-bindswitch lid:off exec pkill auto-rotate.sh
-
-# on screen keyboard
-bindswitch tablet:on exec wvkbd -L 250 &
-bindswitch tablet:off exec pkill -x wvkbd
-
-# lid switch
-#bindswitch lid:off exec swaymsg output eDP-1 disable
-#bindswitch lid:on exec swaymsg output eDP-1 enable
-
-# external display-dock
-output "DP-3" {
-    mode 2560x1440@100Hz
-    scale 1
-}
-
-# rotate display
-bindsym $mod+Shift+r exec ~/.config/sway/scripts/rotate-display.sh 
 
 ### Key bindings
     # Start a terminal
@@ -226,13 +128,5 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# Status Bar:`man 5 sway-bar`
-bindsym $mod+q exec "swaymsg bar mode toggle"
-bar {
-    status_command ~/.config/sway/scripts/status.sh
-    
-    font "Liberation Mono Normal 14"
-    height 20 
-}
-
-include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*
+#include /etc/sway/config.d/*
