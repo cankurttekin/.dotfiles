@@ -19,6 +19,7 @@ set $menu wofi --show drun -i --width=40% --height=43% | xargs swaymsg exec --
 ## borders
 default_border pixel 2px
 default_floating_border none
+smart_borders on
 titlebar_padding 1
 titlebar_border_thickness 0
 
