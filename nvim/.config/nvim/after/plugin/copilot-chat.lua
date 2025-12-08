@@ -3,7 +3,7 @@ local copilot_chat = require("CopilotChat")
 copilot_chat.setup({
   model = "gpt-4.1",
   temperature = 0.1,
-  auto_insert_mode = true,
+  auto_insert_mode = false,
 
   window = {
     layout = "vertical",
@@ -61,3 +61,7 @@ vim.api.nvim_set_hl(0, "CopilotChatHeader", { fg = "#7C3AED", bold = true })
 vim.api.nvim_set_hl(0, "CopilotChatSeparator", { fg = "#374151" })
 vim.api.nvim_set_hl(0, "CopilotChatPrompt", { fg = "#10B981", italic = true })
 vim.api.nvim_set_hl(0, "CopilotChatModel", { fg = "#F59E0B", bold = true })
+
+-- Toggle Chat
+vim.keymap.set('n', '<leader>gpt', function() copilot_chat.toggle() end, { desc = 'Copilot Chat Toggle' })
+vim.keymap.set('v', '<leader>gpt', function() copilot_chat.toggle() end, { desc = 'Copilot Chat Toggle' })

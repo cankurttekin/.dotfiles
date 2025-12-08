@@ -38,9 +38,9 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 vim.diagnostic.config({
   virtual_text = { spacing = 4, prefix = "●" },
   float = {
-      focusable = false,
+      focusable = true,
       style = "minimal",
-      border = "rounded",
+      border = "single",
       header = "",
       prefix = "",
   },
@@ -94,6 +94,8 @@ local function get_java_runtimes()
     "/opt/jdk-21",
     "/opt/jdk-17",
     "/opt/jdk-11",
+
+    "/usr/lib/jvm/java-8-temurin-jdk",
   }
 
   for i, path in ipairs(java_paths) do

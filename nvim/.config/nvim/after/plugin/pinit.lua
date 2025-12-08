@@ -12,4 +12,4 @@ pinit:setup({
 
 vim.keymap.set("n", "<leader>pn", function()
     pinit:open()
-end, { desc = "PinIt Toggle project notes" })
+end, { desc = "PinIt toggle project notes" })
