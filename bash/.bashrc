@@ -105,3 +105,15 @@ alias whoami="whoami && curl ident.me && echo"
 alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
 alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
 #alias rm="rm -i"
+
+# trap for ctrl+d to exit shell but not from tmux session
+function trap_exit_tmux {
+    if [ -n "$TMUX" ]; then
+        # check if there is exactly one window and one pane
+        if [ $(tmux list-windows 2>/dev/null | wc -l) -eq 1 ] && [ $(tmux list-panes 2>/dev/null | wc -l) -eq 1 ]; then
+            # switch to the default session if the current one is the last
+            tmux switch-client -t default 2>/dev/null || tmux switch-client -l
+        fi
+    fi
+}
+trap trap_exit_tmux EXIT

@@ -141,6 +141,6 @@ ram() {
 }
 
 while true; do
-    echo "$(bluetooth) $(network) $(cpu) $(ram) $(volume) $(battery) $(date +"%a, %b%e %H:%M")"
+    echo "$(bluetooth) $(network) $(cpu) $(ram) $(volume) $(battery) $(date +"%a, %b %e %H:%M")"
     sleep 5
 done
