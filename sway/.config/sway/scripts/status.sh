@@ -5,83 +5,70 @@ battery() {
     read -r cap < /sys/class/power_supply/BAT0/capacity
     read -r status < /sys/class/power_supply/BAT0/status
     case "$status" in
-        Charging)       symbol="▲" ;;
-        Discharging)    symbol="▼" ;;
-        'Not charging') symbol="◆" ;;
+        Charging)       symbol="+" ;;
+        Discharging)    symbol="-" ;;
+        'Not charging') symbol="=" ;;
     esac
-    echo "BAT:${cap}%${symbol}"
+    echo "${cap}%${symbol}"
 }
 
 volume() {
     local vol
     vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null | awk '{print int($2*100)}')
-    [ -n "$vol" ] && echo "VOL:$vol" || echo "VOL:N/A"
+    [ -n "$vol" ] && echo "$vol" || echo ""
 }
 
-network() {
-    WIFI="WLAN:Off"
-    ETH=""
-    IP=""
-    INTERFACE=""
-
-    if command -v nmcli >/dev/null 2>&1; then
-        CONNECTIONS=$(nmcli -t -f TYPE,STATE,DEVICE,CONNECTION dev)
-        while IFS= read -r LINE; do
-            TYPE=$(echo "$LINE" | cut -d: -f1)
-            STATE=$(echo "$LINE" | cut -d: -f2)
-            DEVICE=$(echo "$LINE" | cut -d: -f3)
-            NAME=$(echo "$LINE" | cut -d: -f4)
-
-            if [ "$TYPE" = "wifi" ]; then
-                if [ "$STATE" = "connected" ]; then
-                    SIGNAL=$(nmcli -t -f IN-USE,SIGNAL dev wifi | grep '^\*' | cut -d: -f2)
-                    SPEED=$(iw dev "$DEVICE" link | grep -oP 'tx bitrate: \K[^\s]+')
-                    [ -n "$SPEED" ] && SPEED="${SPEED}Mbps"
-                    WIFI="WLAN:$NAME ($SIGNAL%)${SPEED:+ $SPEED}"
-
-                    # Get IP address for Wi-Fi
-                    IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                    [ -n "$IP" ] && IP="$IP"
-                    
-                    INTERFACE="$DEVICE"
-                elif [ "$STATE" = "disconnected" ]; then
-                    WIFI="WLAN:On"
-                else
-                    WIFI="WLAN:Off"
-                fi
-            elif [ "$TYPE" = "ethernet" ]; then
-                ETH_STATUS=$(cat /sys/class/net/"$DEVICE"/operstate 2>/dev/null)
-                ETH_SPEED=$(cat /sys/class/net/"$DEVICE"/speed 2>/dev/null)
-                if [ "$ETH_STATUS" = "up" ]; then
-                    ETH="ETH:Up${ETH_SPEED:+ ${ETH_SPEED}Mbps}"
-
-                    # Get IP address for Ethernet
-                    IP=$(ip -4 addr show "$DEVICE" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-                    [ -n "$IP" ] && IP="$IP"
-
-                    INTERFACE="$DEVICE"
-                else
-                    ETH="ETH:Down"
-                fi
-            fi
-        done <<< "$CONNECTIONS"
-        
-        # Default message if no interface is up
-        [ -z "$ETH" ] && ETH="ETH:Down"
-    else
-        WIFI="WLAN:Unknown"
-        ETH="ETH:Unknown"
+wlan() {
+    if ! nmcli radio wifi | grep -q enabled; then
+        echo "off"
+        return
     fi
 
-    echo "$WIFI $ETH $INTERFACE $IP"
+    local line
+    line=$(nmcli -t -f ACTIVE,SSID,SIGNAL,RATE device wifi list | grep '^yes:' )
+
+    if [ -z "$line" ]; then
+        echo "on"
+        return
+    fi
+
+    IFS=":" read -r _ ssid signal rate <<< "$line"
+    echo "$ssid(${signal}%) $rate"
+}
+
+ethernet() {
+    local dev state speed
+    dev=$(nmcli -t -f DEVICE,TYPE device | awk -F: '$2=="ethernet"{print $1; exit}')
+    state=$(nmcli -t -f DEVICE,STATE device | awk -F: -v d="$dev" '$1==d{print $2}')
+
+    if [ "$state" != "connected" ]; then
+        echo "down"
+        return
+    fi
+
+    speed=$(ethtool "$dev" 2>/dev/null | awk -F': ' '/Speed/ {print $2}')
+
+    echo "up $speed"
+}
+
+network_interface() {
+    local iface ip
+    iface=$(ip route get 1.1.1.1 2>/dev/null | awk '{print $5}')
+    ip=$(ip -4 addr show "$iface" 2>/dev/null | awk '/inet / {print $2}')
+
+    if [ -z "$iface" ]; then
+        echo ""
+    else
+        echo "$iface $ip"
+    fi
 }
 
 bluetooth() {
-    local status="BT:Off" devices=""
+    local status="off" devices=""
 
     if command -v bluetoothctl >/dev/null 2>&1; then
         if bluetoothctl show | grep -q "Powered: yes"; then
-            status="BT:On"
+            status="on"
             mapfile -t macs < <(bluetoothctl devices | awk '{print $2}')
             for mac in "${macs[@]}"; do
                 if bluetoothctl info "$mac" | grep -q "Connected: yes"; then
@@ -93,7 +80,7 @@ bluetooth() {
             devices=${devices:+($devices)}  # Wrap in parentheses if non-empty
         fi
     else
-        status="BT:NULL"
+        status="null"
     fi
 
     echo "$status$devices"
@@ -122,7 +109,7 @@ media() {
 
 cpu() {
     local cpu
-    cpu=$(top -bn1 | grep "Cpu(s)" | awk '{usage = 100 - $8} END {printf("CPU: %.1f%%", usage)}')
+    cpu=$(top -bn1 | grep "Cpu(s)" | awk '{usage = 100 - $8} END {printf("%.1f%%", usage)}')
     echo "$cpu"
 }
 
@@ -134,13 +121,20 @@ ram() {
         used_kb=$((total_kb - available_kb))
         total_gb=$(awk "BEGIN {printf \"%.1f\", $total_kb / 1024 / 1024}")
         used_gb=$(awk "BEGIN {printf \"%.1f\", $used_kb / 1024 / 1024}")
-        echo "RAM:${used_gb}G/${total_gb}G"
+        echo "${used_gb}G/${total_gb}G"
     else
-        echo "RAM:N/A"
+        echo "null"
     fi
 }
 
 while true; do
-    echo "$(bluetooth) $(network) $(cpu) $(ram) $(volume) $(battery) $(date +"%a, %b %e %H:%M")"
+    echo "\
+[bt $(bluetooth)] \
+[wlan $(wlan) eth $(ethernet) $(network_interface)] \
+[cpu $(cpu)] \
+[mem $(ram)] \
+[vol $(volume)] \
+[bat $(battery)] \
+[$(date +"%A %B %e %H:%M" | tr '[:upper:]' '[:lower:]')]"
     sleep 5
 done
