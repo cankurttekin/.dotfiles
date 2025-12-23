@@ -121,17 +121,23 @@ ram() {
         used_kb=$((total_kb - available_kb))
         total_gb=$(awk "BEGIN {printf \"%.1f\", $total_kb / 1024 / 1024}")
         used_gb=$(awk "BEGIN {printf \"%.1f\", $used_kb / 1024 / 1024}")
-        echo "${used_gb}G/${total_gb}G"
+        echo "${used_gb}/${total_gb}g"
     else
         echo "null"
     fi
+}
+
+cpu_temp() {
+    sensors 2>/dev/null |
+    awk '/Core [0-9]+:/ {gsub("[+°C]","",$3); if ($3>max) max=$3}
+         END {if (max) print max "°C"}'
 }
 
 while true; do
     echo "\
 [bt $(bluetooth)] \
 [wlan $(wlan) eth $(ethernet) $(network_interface)] \
-[cpu $(cpu)] \
+[cpu $(cpu) $(cpu_temp)] \
 [mem $(ram)] \
 [vol $(volume)] \
 [bat $(battery)] \
