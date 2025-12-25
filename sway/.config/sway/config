@@ -16,6 +16,9 @@ set $term foot
 # dbus
 exec --no-startup-id dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 
+# notification daemon
+exec mako
+
 ## launcher
 set $menu wofi --show drun -i --width=42% --height=43% | xargs swaymsg exec --
 

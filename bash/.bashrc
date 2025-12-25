@@ -69,6 +69,8 @@ alias vim="nvim"
 alias cim="vim"
 alias bim="vim"
 
+alias :q="exit"
+
 #repeat the last command with sudo
 alias pls='sudo $(history -p !!)' 
 
@@ -106,7 +108,7 @@ alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=
 alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
 #alias rm="rm -i"
 
-# trap for ctrl+d to exit shell but not from tmux session
+# ctrl+d to exit shell but not from tmux session
 function trap_exit_tmux {
     if [ -n "$TMUX" ]; then
         # check if there is exactly one window and one pane
