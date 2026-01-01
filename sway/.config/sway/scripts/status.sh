@@ -139,8 +139,7 @@ while true; do
 [wlan $(wlan) eth $(ethernet) $(network_interface)] \
 [cpu $(cpu) $(cpu_temp)] \
 [mem $(ram)] \
-[vol $(volume)] \
 [bat $(battery)] \
 [$(date +"%A %B %e %H:%M" | tr '[:upper:]' '[:lower:]')]"
-    sleep 5
+    sleep 30
 done

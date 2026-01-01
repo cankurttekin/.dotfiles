@@ -8,28 +8,28 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
     -- ui and appearance
-    use { "catppuccin/nvim", as = "catppuccin"}
-    use "ellisonleao/gruvbox.nvim"
-    use "rose-pine/neovim"
-    use 'rktjmp/lush.nvim'
-    use 'loganswartz/selenized.nvim'
-	use "maxmx03/solarized.nvim"
-    use "nvim-lualine/lualine.nvim"
-    use "Shatur/neovim-ayu"
-    use "bluz71/vim-moonfly-colors"
-    -- use { "nvim-tree/nvim-web-devicons" }
+    use { 'catppuccin/nvim', as = 'catppuccin' }
+    use { 'ellisonleao/gruvbox.nvim' }
+    use { 'rose-pine/neovim' }
+    use { 'rktjmp/lush.nvim' }
+    use { 'loganswartz/selenized.nvim' }
+	use { 'maxmx03/solarized.nvim' }
+    use { 'nvim-lualine/lualine.nvim' }
+    use { 'Shatur/neovim-ayu' }
+    use { 'bluz71/vim-moonfly-colors' }
+    -- use { 'nvim-tree/nvim-web-devicons' }
 
     -- utilities and core
-    use "nvim-lua/plenary.nvim"
-    use "mbbill/undotree"
-    use "tpope/vim-fugitive"
-    use "lewis6991/gitsigns.nvim"
-    use "MunifTanjim/nui.nvim"
-    use "echasnovski/mini.icons"
-    use "stevearc/dressing.nvim"
-    use "folke/which-key.nvim"
-    use "cankurttekin/pinit-nvim"
-    use "ThePrimeagen/vim-be-good"
+    use { 'nvim-lua/plenary.nvim' }
+    use { 'mbbill/undotree' }
+    use { 'tpope/vim-fugitive' }
+    use { 'lewis6991/gitsigns.nvim' }
+    use { 'MunifTanjim/nui.nvim' }
+    use { 'echasnovski/mini.icons' }
+    use { 'stevearc/dressing.nvim' }
+    use { 'folke/which-key.nvim' }
+    use { 'cankurttekin/pinit-nvim' }
+    use { 'ThePrimeagen/vim-be-good' }
 
     -- fuzzy finder and navigation
     use {
@@ -37,49 +37,48 @@ return require('packer').startup(function(use)
             requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {
-            "ThePrimeagen/harpoon",
-            branch = "harpoon2",
-            requires = { {"nvim-lua/plenary.nvim"} }
+            'ThePrimeagen/harpoon',
+            branch = 'harpoon2',
+            requires = { {'nvim-lua/plenary.nvim'} }
     }
 
     -- syntax highlighting
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-    use "nvim-treesitter/nvim-treesitter-textobjects"
-    use "MeanderingProgrammer/render-markdown.nvim"
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'nvim-treesitter/nvim-treesitter-textobjects' }
+    use { 'MeanderingProgrammer/render-markdown.nvim' }
 
     -- lsp and autocompletion
-    use "neovim/nvim-lspconfig"
-    use "williamboman/mason.nvim"
-    use "williamboman/mason-lspconfig.nvim"
-    use "hrsh7th/nvim-cmp"
-    use "hrsh7th/cmp-nvim-lsp"
-    use "L3MON4D3/LuaSnip"
-    use "saadparwaiz1/cmp_luasnip"
-    use "hrsh7th/cmp-buffer"
-    use "hrsh7th/cmp-path"
-    use "rafamadriz/friendly-snippets"
-    use "mfussenegger/nvim-jdtls"
+    use { 'neovim/nvim-lspconfig' }
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim' }
+    use { 'hrsh7th/nvim-cmp' }
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'L3MON4D3/LuaSnip' }
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'rafamadriz/friendly-snippets' }
+    use { 'mfussenegger/nvim-jdtls' }
 
     -- debugging and dev tools
-    use "mfussenegger/nvim-dap"
-    use "rcarriga/nvim-dap-ui"
+    use { 'mfussenegger/nvim-dap' }
+    use { 'rcarriga/nvim-dap-ui' }
 
     -- ai shit
-    use "github/copilot.vim"
+    use { 'github/copilot.vim' }
     use({
-            "CopilotC-Nvim/CopilotChat.nvim",
-            branch = "main",
+            'CopilotC-Nvim/CopilotChat.nvim',
+            branch = 'main',
             requires = {
-                    { "github/copilot.vim" },
-                    { "nvim-lua/plenary.nvim" },
-                    { "nvim-telescope/telescope.nvim" }
+                    { 'github/copilot.vim' },
+                    { 'nvim-lua/plenary.nvim' },
+                    { 'nvim-telescope/telescope.nvim' }
             },
             config = function()
-                    require("CopilotChat").setup({
-                            -- optional settings
+                    require('CopilotChat').setup({
                             debug = false,
                     })
             end,
     })
-    use "supermaven-inc/supermaven-nvim"
+    use { 'supermaven-inc/supermaven-nvim' }
 end)
