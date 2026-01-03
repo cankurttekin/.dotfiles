@@ -8,16 +8,18 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
     -- ui and appearance
+    use { 'rktjmp/lush.nvim' }
+    use { 'nvim-lualine/lualine.nvim' }
+    use { 'metalelf0/black-metal-theme-neovim' }
+    -- use { 'nvim-tree/nvim-web-devicons' }
+    -- colorschemes
     use { 'catppuccin/nvim', as = 'catppuccin' }
     use { 'ellisonleao/gruvbox.nvim' }
-    use { 'rose-pine/neovim' }
-    use { 'rktjmp/lush.nvim' }
     use { 'loganswartz/selenized.nvim' }
-	use { 'maxmx03/solarized.nvim' }
-    use { 'nvim-lualine/lualine.nvim' }
-    use { 'Shatur/neovim-ayu' }
+    use { 'maxmx03/solarized.nvim' }
     use { 'bluz71/vim-moonfly-colors' }
-    -- use { 'nvim-tree/nvim-web-devicons' }
+    use { 'Shatur/neovim-ayu' }
+    use { 'rose-pine/neovim' }
 
     -- utilities and core
     use { 'nvim-lua/plenary.nvim' }

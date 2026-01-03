@@ -10,6 +10,7 @@ local on_attach = function(client, bufnr)
   map("n", "gr", builtin.lsp_references, "References")
   map("n", "gi", builtin.lsp_implementations, "Go to implementation")
   map("n", "gt", builtin.lsp_type_definitions, "Go to type definition")
+  map("n", "<leader>fs", builtin.lsp_document_symbols, "Document symbols")
 
   -- Info
   map("n", "K", vim.lsp.buf.hover, "Hover info")
