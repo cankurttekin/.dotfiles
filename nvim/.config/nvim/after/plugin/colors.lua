@@ -1,15 +1,19 @@
 require('rose-pine').setup({
-    disable_background = true,
+    disable_background = true
 })
 
-function ColorMyWorld(color, mode)
+function ColorMyWorld(color, mode, transparent)
     color = color or "rose-pine-moon"
     mode = mode or "dark"
+    transparent = transparent or true
+
     vim.cmd.colorscheme(color)
     vim.o.background = mode
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    if transparent == true then
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { bg = "none" })
+    end
 end
 
 ColorMyWorld()

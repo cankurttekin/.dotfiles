@@ -1,3 +1,4 @@
 require("cankurttekin.remap")
 require("cankurttekin.set")
-print("cankurttekin's neovim")
+require("cankurttekin.autocmd")
+print("> cankurttekin's neovim")

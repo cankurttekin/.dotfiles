@@ -32,11 +32,17 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.opt.ignorecase = true -- ignore case for search
+vim.opt.smartcase = true -- but not if caps used
 
 vim.o.autoread = true
 
 vim.opt.cursorline = true
 
-vim.g.mapleader = " "
+vim.g.netrw_browse_split = 0 -- open files in the same window
+vim.g.netrw_banner = 0 -- hide the netrw banner
+vim.g.netrw_winsize = 25 -- set the width of the netrw window to 25% of the screen
+--vim.g.netrw_liststyle = 1
+
+vim.opt.showmode = false -- dont needed due to statusline
+vim.opt.numberwidth = 2

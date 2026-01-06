@@ -37,7 +37,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Global diagnostics config
 vim.diagnostic.config({
-  virtual_text = { spacing = 4, prefix = "●" },
+  virtual_text = { spacing = 4, prefix = "⦿" },
   float = {
       focusable = true,
       style = "minimal",

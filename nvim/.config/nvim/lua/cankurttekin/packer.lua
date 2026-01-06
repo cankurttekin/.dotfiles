@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
     use { 'rktjmp/lush.nvim' }
     use { 'nvim-lualine/lualine.nvim' }
     use { 'metalelf0/black-metal-theme-neovim' }
+    use { 'folke/zen-mode.nvim' }
     -- use { 'nvim-tree/nvim-web-devicons' }
     -- colorschemes
     use { 'catppuccin/nvim', as = 'catppuccin' }
@@ -44,10 +45,34 @@ return require('packer').startup(function(use)
             requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    -- syntax highlighting
+    -- syntax
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use { 'nvim-treesitter/nvim-treesitter-textobjects' }
     use { 'MeanderingProgrammer/render-markdown.nvim' }
+    --[[
+    use {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = function()
+            require("nvim-autopairs").setup {}
+        end
+    }
+    --]]
+    use {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require("colorizer").setup({ "*" }, {
+                RGB = true, -- #RGB hex codes
+                RRGGBB = true, -- #RRGGBB hex codes
+                names = true, -- "Name" codes like Blue
+                RRGGBBAA = true, -- #RRGGBBAA hex codes
+                rgb_fn = true, -- CSS rgb() and rgba() functions
+                hsl_fn = true, -- CSS hsl() and hsla() functions
+                css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+                css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+            })
+        end
+    }
 
     -- lsp and autocompletion
     use { 'neovim/nvim-lspconfig' }
