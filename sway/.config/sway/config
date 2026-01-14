@@ -14,13 +14,20 @@ set $right l
 set $term foot
 
 # dbus
-exec --no-startup-id dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
+#exec --no-startup-id dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 
 # notification daemon
-exec mako
+#exec mako
 
 ## launcher
-set $menu wofi --show drun -i --width=42% --height=43% | xargs swaymsg exec --
+#set $menu wofi --show drun -i --width=42% --height=43% | xargs swaymsg exec --
+
+set $rofi_cmd rofi \
+        -terminal '$term'
+# Shows a combined list of the applications with desktop files and
+# executables from PATH.
+# TODO: add window with the next release of rofi-wayland
+set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
 ## borders
 default_border pixel 2px
@@ -137,3 +144,6 @@ bindsym $mod+r mode "resize"
 
 include ~/.config/sway/config.d/*
 #include /etc/sway/config.d/*
+
+#include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+include '$(/usr/libexec/sway/layered-include "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'

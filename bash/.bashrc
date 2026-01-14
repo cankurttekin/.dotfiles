@@ -23,6 +23,8 @@ YELLOW="\[\e[33m\]"
 GREEN="\[\e[32m\]"
 MAGENTA="\[\e[35m\]"
 
+# this is not the best way to do this, its slow and expensive.
+# but it works for now
 parse_git() {
   git rev-parse --is-inside-work-tree &>/dev/null || return
 
@@ -68,13 +70,14 @@ eval "$(fzf --bash)"
 alias vim="nvim"
 alias cim="vim"
 alias bim="vim"
-
 alias :q="exit"
-
-#repeat the last command with sudo
-alias pls='sudo $(history -p !!)' 
-
+alias pls='sudo $(history -p !!)' #repeat the last command with sudo
 alias untar='tar -zxvf ' 
+alias whoami="whoami && curl ident.me && echo"
+alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
+alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
+#alias rm="rm -i"
+alias ytmp="yt-dlp -t mp3 "
 
 extract() {
   if [ -f "$1" ]; then
@@ -98,15 +101,10 @@ extract() {
 }
 
 weather() { curl -s "wttr.in/${1:-Ankara}?format=4"; }
-alias ytmp="yt-dlp -t mp3 "
 
 # cd up x
 up() { cd $(eval printf '../'%.0s {1..$1}); }
 
-alias whoami="whoami && curl ident.me && echo"
-alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
-alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
-#alias rm="rm -i"
 
 # ctrl+d to exit shell but not from tmux session
 function trap_exit_tmux {
@@ -119,3 +117,41 @@ function trap_exit_tmux {
     fi
 }
 trap trap_exit_tmux EXIT
+
+fuzzy_find() {
+  local target mime
+
+  target=$(find . -mindepth 1 ! -path '*/.*' 2>/dev/null | fzf \
+    --preview '
+      if [ -d {} ]; then
+        ls -la {}
+      else
+        bat --style=numbers --color=always {} 2>/dev/null || sed -n "1,200p" {}
+      fi
+    '
+  ) || return
+
+  [[ -z "$target" ]] && return
+
+  # if directory open in nvim file explorer
+  if [[ -d "$target" ]]; then
+    nvim "$target"
+    return
+  fi
+
+  # detect MIME type
+  mime=$(file --mime-type -b "$target")
+
+  case "$mime" in
+    text/*|application/json|application/xml)
+      nvim "$target"
+      ;;
+    *)
+      case "$(uname)" in
+        Darwin) open "$target" ;; # here is your macos comp. adventurer i guess
+        Linux)  xdg-open "$target" ;;
+      esac
+      ;;
+  esac
+}
+bind -x '"\C-f": fuzzy_find'

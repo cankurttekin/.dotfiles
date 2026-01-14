@@ -46,7 +46,7 @@ return require('packer').startup(function(use)
     }
 
     -- syntax
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 'nvim-treesitter/nvim-treesitter', branch = 'master',  run = ':TSUpdate' }
     use { 'nvim-treesitter/nvim-treesitter-textobjects' }
     use { 'MeanderingProgrammer/render-markdown.nvim' }
     --[[
