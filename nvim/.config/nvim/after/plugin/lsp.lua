@@ -84,9 +84,9 @@ local function get_java_runtimes()
   -- Common Java installation paths (in order of preference)
   local java_paths = {
     -- OpenJDK
-    "/usr/lib/jvm/java-21-openjdk-amd64",
-    "/usr/lib/jvm/java-17-openjdk-amd64",
-    "/usr/lib/jvm/java-11-openjdk-amd64",
+    "/usr/lib/jvm/java-21-openjdk",
+    "/usr/lib/jvm/java-17-openjdk",
+    "/usr/lib/jvm/java-11-openjdk",
     -- Oracle JDK
     "/usr/lib/jvm/jdk-21-oracle-x64",
     "/usr/lib/jvm/jdk-17-oracle-x64",
@@ -97,6 +97,8 @@ local function get_java_runtimes()
     "/opt/jdk-11",
 
     "/usr/lib/jvm/java-8-temurin-jdk",
+    "/usr/lib/jvm/java-11-temurin-jdk",
+    "/usr/lib/jvm/java-17-temurin-jdk",
   }
 
   for i, path in ipairs(java_paths) do

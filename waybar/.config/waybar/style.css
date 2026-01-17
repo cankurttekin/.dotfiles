@@ -1,6 +1,6 @@
 * {
-    font-family: "Noto Sans Mono", monospace;
-    font-size: 14px;
+    font-family: "Iosevka Term Extended", monospace;
+    font-size: 15px;
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -8,7 +8,7 @@
     animation: none;
 }
 
-@define-color bg #1e1e1e;
+@define-color bg #000;
 @define-color fg #e5e5e5;
 @define-color muted #888888;
 @define-color accent #ffffff;

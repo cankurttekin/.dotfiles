@@ -1,7 +1,7 @@
 export PATH=$PATH:$HOME/go/bin
 export PATH=~/.opencode/bin:$PATH
 
-source <(ng completion script) # Angular CLI autocompletion
+#source <(ng completion script) # Angular CLI autocompletion
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
