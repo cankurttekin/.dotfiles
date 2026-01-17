@@ -37,8 +37,8 @@ parse_git() {
   [ "$ahead" -gt 0 ] && arrows="↑$ahead"
   [ "$behind" -gt 0 ] && arrows="${arrows}↓$behind"
 
-  git diff --quiet --ignore-submodules HEAD &>/dev/null || dirty="✚"
-  [ -z "$dirty" ] && dirty="✔"
+  git diff --quiet --ignore-submodules HEAD &>/dev/null || dirty="+"
+  [ -z "$dirty" ] && dirty="✓"
 
   echo " ${MAGENTA}git:${RESET}(${CYAN}${branch}${RESET}${YELLOW}${arrows:+$arrows}${RESET}|${GREEN}${dirty}${RESET})"
 }
