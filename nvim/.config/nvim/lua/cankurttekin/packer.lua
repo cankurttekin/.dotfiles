@@ -10,7 +10,6 @@ return require('packer').startup(function(use)
     -- ui and appearance
     use { 'rktjmp/lush.nvim' }
     use { 'nvim-lualine/lualine.nvim' }
-    use { 'metalelf0/black-metal-theme-neovim' }
     use { 'folke/zen-mode.nvim' }
     -- use { 'nvim-tree/nvim-web-devicons' }
     -- colorschemes
@@ -21,6 +20,7 @@ return require('packer').startup(function(use)
     use { 'bluz71/vim-moonfly-colors' }
     use { 'Shatur/neovim-ayu' }
     use { 'rose-pine/neovim' }
+    use { 'cankurttekin/black-metal-theme-neovim' }
 
     -- utilities and core
     use { 'nvim-lua/plenary.nvim' }

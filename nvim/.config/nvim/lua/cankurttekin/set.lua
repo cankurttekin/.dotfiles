@@ -41,7 +41,7 @@ vim.opt.cursorline = true
 
 vim.g.netrw_browse_split = 0 -- open files in the same window
 vim.g.netrw_banner = 0 -- hide the netrw banner
-vim.g.netrw_winsize = 25 -- set the width of the netrw window to 25% of the screen
+vim.g.netrw_winsize = 25 -- width of the netrw window
 --vim.g.netrw_liststyle = 1
 
 vim.opt.showmode = false -- dont needed due to statusline
