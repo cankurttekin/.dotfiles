@@ -124,7 +124,7 @@ fuzzy_find() {
   target=$(find . -mindepth 1 ! -path '*/.*' 2>/dev/null | fzf \
     --preview '
       if [ -d {} ]; then
-        ls -la {}
+        ls -a --color {}
       else
         bat --style=numbers --color=always {} 2>/dev/null || sed -n "1,200p" {}
       fi
@@ -143,7 +143,7 @@ fuzzy_find() {
   mime=$(file --mime-type -b "$target")
 
   case "$mime" in
-    text/*|application/json|application/xml)
+    text/*|application/*json*|application/*xml*|application/x-shellscript)
       nvim "$target"
       ;;
     *)

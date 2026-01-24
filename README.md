@@ -2,11 +2,8 @@
 ```stow bash foot git mako nvim sway tmux tmux-sessionizer wofi```
 
 ## Installing [`packages`](./packages)
-- bash:
+- debian/fedora:
 ```package-installer.sh```
-
-- or
-```sudo dnf install -y $(<packages)```
 
 ## tmux sessionizer
 - https://github.com/ThePrimeagen/tmux-sessionizer
