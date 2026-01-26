@@ -1,6 +1,6 @@
 * {
-    font-family: "Iosevka Term Extended", monospace;
-    font-size: 15px;
+    font-family: "BlexMono Nerd Font", monospace;
+    font-size: 14px;
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -37,7 +37,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 6px;
+    padding: 0 4px;
     background: transparent;
     color: @muted;
     border: none;
@@ -84,7 +84,7 @@ window#waybar {
 }
 
 #privacy-item {
-    padding: 0 6px;
+    padding: 0 4px;
     color: @fg;
 }
 
