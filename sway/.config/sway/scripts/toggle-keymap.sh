@@ -5,7 +5,7 @@ DEVICE_ID=$(swaymsg -t get_inputs | jq -r '.[] | select(.type == "keyboard") | .
 
 if [[ ! -f "$STATE_FILE" ]]; then
   echo "swap" > "$STATE_FILE"
-  xkbcomp ~/.config/sway/xkb/swap.xkb $DISPLAY
+  xkbcomp ~/.config/xkb/swap.xkb $DISPLAY
 else
   STATE=$(cat "$STATE_FILE")
   if [[ "$STATE" == "swap" ]]; then
@@ -13,6 +13,6 @@ else
     setxkbmap us 
   else
     echo "swap" > "$STATE_FILE"
-    xkbcomp ~/.config/sway/xkb/swap.xkb $DISPLAY
+    xkbcomp ~/.config/xkb/swap.xkb $DISPLAY
   fi
 fi
