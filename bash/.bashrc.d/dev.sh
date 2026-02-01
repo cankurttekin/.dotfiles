@@ -1,11 +1,26 @@
-export PATH=$PATH:$HOME/go/bin
-export PATH=~/.opencode/bin:$PATH
+# add dev tools to env if exists
 
-#source <(ng completion script) # Angular CLI autocompletion
+if [ -d "$HOME/go/bin" ]; then
+  export PATH="$PATH:$HOME/go/bin"
+fi
+
+if [ -d "$HOME/.opencode/bin" ]; then
+  export PATH="$HOME/.opencode/bin:$PATH"
+fi
+
+# Angular CLI autocomplete
+# command -v ng >/dev/null 2>&1 && source <(ng completion script)
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  . "$NVM_DIR/nvm.sh"
+fi
+if [ -s "$NVM_DIR/bash_completion" ]; then
+  . "$NVM_DIR/bash_completion"
+fi
 
-. "$HOME/.cargo/env"
+# Rust / Cargo
+if [ -s "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
