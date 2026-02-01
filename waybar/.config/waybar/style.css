@@ -13,6 +13,7 @@
 @define-color muted #888888;
 @define-color accent #ffffff;
 @define-color warning #ff5555;
+@define-color green #6ece8e;
 
 window#waybar {
     background-color: @bg;
@@ -44,8 +45,8 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    color: @fg;
-    box-shadow: inset 0 -2px @accent;
+    color: @bg;
+    background: @fg;
 }
 
 #workspaces button.urgent {
@@ -59,7 +60,7 @@ window#waybar {
 
 #battery.charging,
 #battery.plugged {
-    color: @accent;
+    color: @green;
 }
 
 #battery.critical:not(.charging) {
@@ -90,4 +91,8 @@ window#waybar {
 
 label:focus {
     background: transparent;
+}
+
+#custom-power {
+    color: @warning;
 }

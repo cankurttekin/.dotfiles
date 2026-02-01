@@ -22,11 +22,9 @@ set $term foot
 ## launcher
 #set $menu wofi --show drun -i --width=42% --height=43% | xargs swaymsg exec --
 
-set $rofi_cmd rofi \
-        -terminal '$term'
+set $rofi_cmd rofi -terminal '$term'
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
-# TODO: add window with the next release of rofi-wayland
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
 ## borders
