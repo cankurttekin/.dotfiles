@@ -33,7 +33,7 @@ window#waybar {
 #tray,
 #idle_inhibitor,
 #privacy {
-    padding: 0 8px;
+    padding: 0 6px;
     color: @fg;
 }
 
