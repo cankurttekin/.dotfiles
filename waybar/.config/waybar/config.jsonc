@@ -4,6 +4,7 @@
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 20,
     "spacing": 0, // Gaps between modules
+    "ipc": true,
     // Choose the order of the modules
     "modules-left": [
         "sway/workspaces",
