@@ -16,7 +16,6 @@
     //],
     "modules-right": [
         "idle_inhibitor",
-        "sway/language",
         "pulseaudio",
         "network",
         "power-profiles-daemon",
@@ -26,7 +25,9 @@
         //"backlight",
         "battery",
         "clock",
+        "sway/language",
         "custom/power", 
+        "custom/wvkbd", 
         "tray"
     ],
     // Modules configuration
@@ -83,10 +84,10 @@
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "idle_inhibitor": {
-        "format": "idle: {icon}",
+        "format": "sleep:{icon}",
         "format-icons": {
-            "activated": "on",
-            "deactivated": "off"
+            "activated": "off",
+            "deactivated": "on"
         }
     },
     "tray": {
@@ -157,16 +158,16 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{ifname}: {essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-wifi": "network:{ifname} {essid} ({signalStrength}%) ",
+        "format-ethernet": "network:{ifname} {ipaddr}/{cidr}",
+        "tooltip-format": "network:gateway {gwaddr}",
+        "format-linked": "network:{ifname} (no ip)",
+        "format-disconnected": "network:disconnected!",
+        "format-alt": "network:{ifname} {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
+        "format": "sound:{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
@@ -183,18 +184,6 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/media": {
-        "format": "{icon} {text}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    },
     "custom/power": {
         "format" : "⏻ ",
 		"tooltip": false,
@@ -206,6 +195,11 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
+    },
+    "custom/wvkbd": {
+        "format": "⌨",
+        "tooltip": false,
+        "on-click": "pkill wvkbd || wvkbd"
     }
 }
  

@@ -1,6 +1,6 @@
 * {
     font-family: "BlexMono Nerd Font", monospace;
-    font-size: 14px;
+    font-size: 16px;
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -95,4 +95,9 @@ label:focus {
 
 #custom-power {
     color: @warning;
+    padding-left: 6px;
+}
+
+#custom-wvkbd {
+    font-size: 28px;
 }
