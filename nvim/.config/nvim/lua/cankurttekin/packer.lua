@@ -11,7 +11,6 @@ return require('packer').startup(function(use)
     use { 'rktjmp/lush.nvim' }
     use { 'nvim-lualine/lualine.nvim' }
     use { 'folke/zen-mode.nvim' }
-    -- use { 'nvim-tree/nvim-web-devicons' }
     -- colorschemes
     use { 'catppuccin/nvim', as = 'catppuccin' }
     use { 'ellisonleao/gruvbox.nvim' }

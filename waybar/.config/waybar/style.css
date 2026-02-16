@@ -1,6 +1,6 @@
 * {
     font-family: "BlexMono Nerd Font", monospace;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -10,6 +10,7 @@
 
 @define-color bg #000;
 @define-color fg #e5e5e5;
+@define-color active #285577;
 @define-color muted #888888;
 @define-color accent #ffffff;
 @define-color warning #ff5555;
@@ -21,7 +22,6 @@ window#waybar {
     border: none;
 }
 
-#clock,
 #battery,
 #cpu,
 #memory,
@@ -41,12 +41,12 @@ window#waybar {
     padding: 0 4px;
     background: transparent;
     color: @muted;
-    border: none;
 }
 
 #workspaces button.focused {
-    color: @bg;
-    background: @fg;
+    color: @fg;
+    background: @active;
+    box-shadow: inset 0 -2px @fg;
 }
 
 #workspaces button.urgent {
@@ -94,7 +94,6 @@ label:focus {
 }
 
 #custom-power {
-    color: @warning;
     padding-left: 6px;
 }
 
