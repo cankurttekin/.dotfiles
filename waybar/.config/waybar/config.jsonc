@@ -114,7 +114,7 @@
         "critical-threshold": 70,
         "format-critical": "{icon} {temperatureC}°C",
         "format": "{icon} {temperatureC}°C",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""]
     },
     /*
     "backlight": {
@@ -196,7 +196,7 @@
     },
     */
     "custom/wvkbd": {
-        "format": "⌨",
+        "format": "󰌌",
         "tooltip": false,
         "on-click": "pkill wvkbd || wvkbd"
     }

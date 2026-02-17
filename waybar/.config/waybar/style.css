@@ -93,10 +93,8 @@ label:focus {
     background: transparent;
 }
 
+#custom-wvkbd,
 #custom-power {
     padding-left: 6px;
-}
-
-#custom-wvkbd {
-    font-size: 28px;
+    padding-right: 6px;
 }
