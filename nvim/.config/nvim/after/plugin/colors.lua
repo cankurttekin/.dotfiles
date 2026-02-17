@@ -1,19 +1,5 @@
 require('rose-pine').setup({ disable_background = true })
-require("black-metal").setup({ transparent = true, })
-require("black-metal").load()
-require('ayu').setup({
-    overrides = {
-        Normal = { bg = "None" },
-        NormalFloat = { bg = "none" },
-        ColorColumn = { bg = "None" },
-        SignColumn = { bg = "None" },
-        Folded = { bg = "None" },
-        FoldColumn = { bg = "None" },
-        CursorLine = { bg = "None" },
-        CursorColumn = { bg = "None" },
-        VertSplit = { bg = "None" },
-    },
-})
+
 function ColorMyWorld(color, mode, transparent)
     color = color or "rose-pine"
     mode = mode or "dark"

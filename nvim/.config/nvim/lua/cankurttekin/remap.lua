@@ -1,14 +1,22 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Show directory" })
 
+-- move lines up/down with J/K 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+-- stay in visual select while indenting
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+
+-- join lines and return the cursor where it was
 vim.keymap.set("n", "J", "mzJ`z")
 
+-- half page scrolling
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- n = next match, zz = center the screen, zv = open folds
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -32,6 +40,9 @@ vim.keymap.set('n', 'L', '$', { desc = 'End of line' })
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- duplicate a line and comment out the first line
+vim.keymap.set("n", "yc", "yygccp", {remap=true})
 
 -- tmux mappings for prime's sessionizer
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")

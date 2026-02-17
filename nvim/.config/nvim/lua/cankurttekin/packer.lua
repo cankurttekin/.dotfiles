@@ -9,17 +9,18 @@ return require('packer').startup(function(use)
 
     -- ui and appearance
     use { 'rktjmp/lush.nvim' }
-    use { 'nvim-lualine/lualine.nvim' }
+    --use { 'nvim-lualine/lualine.nvim' }
     use { 'folke/zen-mode.nvim' }
+
     -- colorschemes
-    use { 'catppuccin/nvim', as = 'catppuccin' }
-    use { 'ellisonleao/gruvbox.nvim' }
-    use { 'loganswartz/selenized.nvim' }
     use { 'maxmx03/solarized.nvim' }
-    use { 'bluz71/vim-moonfly-colors' }
-    use { 'Shatur/neovim-ayu' }
     use { 'rose-pine/neovim' }
-    use { 'cankurttekin/black-metal-theme-neovim' }
+    --use { 'cankurttekin/black-metal-theme-neovim' }
+    --use { 'catppuccin/nvim', as = 'catppuccin' }
+    --use { 'ellisonleao/gruvbox.nvim' }
+    --use { 'loganswartz/selenized.nvim' }
+    --use { 'bluz71/vim-moonfly-colors' }
+    --use { 'Shatur/neovim-ayu' }
 
     -- utilities and core
     use { 'nvim-lua/plenary.nvim' }
@@ -29,7 +30,7 @@ return require('packer').startup(function(use)
     use { 'MunifTanjim/nui.nvim' }
     use { 'echasnovski/mini.icons' }
     use { 'stevearc/dressing.nvim' }
-    use { 'folke/which-key.nvim' }
+    --use { 'folke/which-key.nvim' }
     use { 'cankurttekin/pinit-nvim' }
     use { 'ThePrimeagen/vim-be-good' }
 

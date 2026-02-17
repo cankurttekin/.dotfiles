@@ -1,3 +1,4 @@
+--[[
 require('lualine').setup {
   options = {
     icons_enabled = false,
@@ -52,3 +53,4 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
+]]--
