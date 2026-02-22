@@ -1,1 +1,5 @@
 @theme "./rose-pine.rasi"
+configuration {
+    show-icons: true;
+    matching: "fuzzy";
+}
