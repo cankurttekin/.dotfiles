@@ -27,6 +27,9 @@ set $rofi_cmd rofi -terminal '$term'
 # executables from PATH.
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
+# clipboard with wl-copy and rofi
+bindsym $mod+c exec ~/.config/sway/scripts/rofi-clipboard.sh
+
 ## borders
 default_border pixel 2px
 default_floating_border none

@@ -16,6 +16,7 @@
     ],
     "modules-right": [
         "idle_inhibitor",
+        "custom/clipboard",
         "pulseaudio",
         "network",
         "power-profiles-daemon",
@@ -82,6 +83,12 @@
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
+    "custom/clipboard": {
+        "format": "󱉨 ",
+        "on-click": "~/.config/sway/scripts/rofi-clipboard.sh",
+        "tooltip-format": "show clipboard history",
+        "interval": 0
+    },
     "idle_inhibitor": {
         "format": "{icon} ",
         "format-icons": {
@@ -133,7 +140,7 @@
         "format": "{icon} {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
-        "format-alt": "{icon} {time}",
+        "format-alt": "{icon} {capacity}% {time}",
         //"format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
