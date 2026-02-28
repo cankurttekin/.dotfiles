@@ -1,7 +1,7 @@
 require('rose-pine').setup({ disable_background = true })
 
 function ColorMyWorld(color, mode, transparent)
-    color = color or "rose-pine"
+    color = color or "rose-pine-moon"
     mode = mode or "dark"
     transparent = transparent or true
 
