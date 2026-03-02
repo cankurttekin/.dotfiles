@@ -162,12 +162,12 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{ifname} {essid} ({signalStrength}%) ",
+        "format-wifi": " {ifname} {essid}({signalStrength}%)",
         "format-ethernet": " {ifname} {ipaddr}/{cidr}",
         "tooltip-format": " gateway {gwaddr}",
         "format-linked": " {ifname} (no ip)",
         "format-disconnected": "disconnected ⚠ {ifname}",
-        "format-alt": " {ifname} {ipaddr}/{cidr}"
+        "format-alt": "{ifname} {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -206,5 +206,9 @@
         "format": "󰌌",
         "tooltip": false,
         "on-click": "pkill wvkbd || wvkbd"
+    },
+    "sway/language": {
+        "format": "{}",
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     }
 }
