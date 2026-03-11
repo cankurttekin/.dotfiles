@@ -54,6 +54,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "Cmdline
    end,
 })
 
+--[[
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
    pattern = "*",
    group = augroup,
@@ -63,8 +64,20 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEn
          -- Conditional taken from https://github.com/rockyzhang24/dotfiles/commit/03dd14b5d43f812661b88c4660c03d714132abcf
          -- Workaround for https://github.com/neovim/neovim/issues/32068
          if not vim.tbl_contains({"@", "-"}, vim.v.event.cmdtype) then
-            vim.cmd "redraw"
+            vim.cd "redraw"
          end
       end
    end,
+})
+]]--
+
+-- Open binary files
+vim.api.nvim_create_autocmd("BufReadCmd", {
+  pattern = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp",
+  "*.bmp", "*.svg", "*.tiff", "*.avif", "*.pdf" },
+  callback = function()
+    local filename = vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
+    vim.cmd("silent !xdg-open " .. filename .. " &")
+    vim.cmd("let tobedeleted = bufnr('%') | b# | exe \"bd! \" . tobedeleted")
+  end
 })

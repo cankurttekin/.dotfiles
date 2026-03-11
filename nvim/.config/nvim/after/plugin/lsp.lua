@@ -53,6 +53,7 @@ local servers = {
   "pyright",
   "ts_ls",
   "angularls",
+  "clangd",
 --  "gopls",
 }
 

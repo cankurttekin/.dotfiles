@@ -14,6 +14,7 @@ require("mason-lspconfig").setup({
     "bashls",
     "dockerls",
     "rust_analyzer",
+    "clangd",
   },
   automatic_installation = true,
 })

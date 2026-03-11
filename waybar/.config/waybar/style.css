@@ -25,7 +25,8 @@
 @define-color highlighthigh  #56526e;
 
 window#waybar {
-    background-color: @base;
+    /* workaround for flickering bug when waybar hidden */
+	background-color: rgba(35, 33, 54, 0.99);
     color: @text;
     border: none;
 }

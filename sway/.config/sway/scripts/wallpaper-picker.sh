@@ -1,0 +1,20 @@
+#!/bin/bash
+WALLDIR="$HOME/Pictures/Wallpapers"
+
+chosen=$(find "$WALLDIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) -print0 \
+    | shuf -z \
+    | while IFS= read -r -d '' img; do
+echo -en "$(basename "$img")\0icon\x1f$img\n"
+done | rofi -dmenu -show-icons \
+    -matching fuzzy \
+    -theme-str '
+listview {columns: 1; lines: 6;}
+element-icon {size: 60px;}')
+
+if [ -n "$chosen" ]; then
+    pkill swaybg
+    img_path=$(find "$WALLDIR" -type f -name "$chosen" | head -n 1)
+    if [ -n "$img_path" ]; then
+        swaybg -i "$img_path" -m fill &
+    fi
+fi
