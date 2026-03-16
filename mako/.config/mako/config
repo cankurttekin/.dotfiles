@@ -6,7 +6,7 @@ ignore-timeout=0
 max-visible=5
 layer=overlay
 
-font= BlexMono Nerd Font 12
+font= BlexMono Nerd Font 10
 background-color=#393552
 text-color=#e0def4
 border-color=#56526e

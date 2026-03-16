@@ -17,6 +17,7 @@
     "modules-right": [
         "idle_inhibitor",
         //"custom/clipboard",
+        "custom/emoji",
         //"custom/wallpaper",
         "pulseaudio",
         "network",
@@ -94,6 +95,12 @@
         "format": "󱉨 ",
         "on-click": "~/.config/sway/scripts/rofi-clipboard.sh",
         "tooltip-format": "show clipboard history",
+        "interval": 0
+    },
+    "custom/emoji": {
+        "format": "😊",
+        "on-click": "~/.config/sway/scripts/rofi-emoji-picker.sh",
+        "tooltip-format": "emoji picker",
         "interval": 0
     },
     "idle_inhibitor": {
