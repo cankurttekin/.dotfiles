@@ -1,5 +1,6 @@
 ## Symlinks using GNU Stow
-```stow bash foot git mako nvim sway tmux tmux-sessionizer wofi```
+Directories structured for symlinking using GNU Stow.
+```stow bash nvim foot tmux rofi mako```
 
 ## Installing [`packages`](./packages)
 - debian/fedora:
