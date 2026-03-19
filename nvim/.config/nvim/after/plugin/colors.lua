@@ -1,4 +1,4 @@
---require('rose-pine').setup({ disable_background = true })
+require('rose-pine').setup({ disable_background = true })
 
 function ColorMyWorld(color, mode, transparent)
     color = color or "rose-pine-moon"

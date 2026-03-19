@@ -55,6 +55,7 @@ PROMPT_COMMAND='PS1=" ${BLUE}⤳ $(get_dir)${RESET}$(parse_git) \$ "'
 
 set -o vi
 
+export TERMINAL=foot
 export EDITOR='nvim'
 export VISUAL='nvim'
 export HISTSIZE=10000

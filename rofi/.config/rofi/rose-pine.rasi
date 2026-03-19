@@ -12,7 +12,7 @@
 	red: #eb6f92;
 	yel: #f6c177;
 
-	font: "BlexMonoNerdFont Regular 14";
+	font: "BlexMonoNerdFont Regular 18";
 
 	foreground: @fgd;
 	background: @bg;
@@ -28,9 +28,10 @@
 
 #window {
 	background-color: @background;
-	border:           1;
-	border-color:     @bordercolor;
-	padding:          5;
+	border:           0;
+	padding:          8;
+    width: 30%;
+    height: 30%;
 }
 #mainbox {
 	border:  0;
@@ -46,15 +47,14 @@
 }
 #listview {
 	fixed-height: 0;
-	border:       2px dash 0px 0px ;
-	border-color: @bordercolor;
-	spacing:      2px ;
+	border:       0px; 
+	spacing:      0px;
 	scrollbar:    false;
-	padding:      2px 0px 0px ;
+	padding:     0px; 
 }
 #element {
 	border:  0;
-	padding: 1px ;
+	padding: 1px;
 }
 #element.normal.normal {
 	background-color: @background;

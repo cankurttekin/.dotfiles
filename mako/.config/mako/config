@@ -1,12 +1,12 @@
 max-history=5
-#width=299
-height=280
+width=400
+height=380
 default-timeout=10000
 ignore-timeout=0
 max-visible=5
 layer=overlay
 
-font= BlexMono Nerd Font 10
+font= BlexMono Nerd Font 12
 background-color=#393552
 text-color=#e0def4
 border-color=#56526e

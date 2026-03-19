@@ -6,6 +6,7 @@ chosen=$(find "$WALLDIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "
     | while IFS= read -r -d '' img; do
 echo -en "$(basename "$img")\0icon\x1f$img\n"
 done | rofi -dmenu -show-icons \
+    -p "Select Wallpaper" \
     -matching fuzzy \
     -theme-str '
 listview {columns: 1; lines: 6;}

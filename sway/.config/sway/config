@@ -10,6 +10,9 @@ set $down j
 set $up k
 set $right l
 
+# cursor theme
+seat seat0 xcursor_theme BreezeX-RosePine-Linux 30
+
 ## terminal
 set $term foot
 
@@ -22,7 +25,9 @@ set $rofi_cmd rofi -terminal '$term'
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
 # clipboard with wl-copy and rofi
-bindsym $mod+c exec ~/.config/sway/scripts/rofi-clipboard.sh
+bindsym $mod+c exec rofi-clipboard
+
+bindsym $mod+n exec notes
 
 ## borders
 default_border pixel 2px
@@ -63,6 +68,19 @@ titlebar_border_thickness 0
     bindsym $mod+Shift+$right move right
 
 # Workspaces:
+# WIP
+set $ws_web  "1"
+set $ws_term "2"
+set $ws_gimp "5"
+#set $ws_music "9"
+set $ws_incognito "10"
+bindsym $mod+t workspace $ws_term
+bindsym $mod+w workspace $ws_web
+bindsym $mod+g workspace $ws_gimp
+#bindsym $mod+g exec swaymsg workspace $ws_gimp; exec pgrep -x gimp || gimp
+#bindsym $mod+m workspace $ws_music
+bindsym $mod+i workspace $ws_incognito
+#---
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -94,8 +112,8 @@ titlebar_border_thickness 0
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    #bindsym $mod+s layout stacking
+    #bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen

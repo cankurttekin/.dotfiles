@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Fetches the definition of a Turkish word from the TDK API and displays it as a notification.
+# inspired by github.com/BreadOnPenguins/scripts/blob/master/shortcuts-menus/define
+
+word=${1:-$(xclip -o -selection primary 2>/dev/null || wl-paste 2>/dev/null)}
+
+# Check for empty word or special characters
+[[ -z "$word" || "$word" =~ [\/] ]] && notify-send -h string:bgcolor:#bf616a -t 3000 "Hatalı girdi." && exit 0
+
+query=$(curl -s --connect-timeout 5 --max-time 10 "https://sozluk.gov.tr/gts?ara=$word")
+
+# Check for connection error (curl exit status stored in $?)
+[ $? -ne 0 ] && notify-send -h string:bgcolor:#bf616a -t 3000 "Bağlantı hatası." && exit 1
+
+# Check for invalid word response
+[[ "$query" == *"error"* || "$query" == *"[]" ]] && notify-send -h string:bgcolor:#bf616a -t 3000 "Hatalı kelime." && exit 0
+
+# Show only first 3 definitions
+def=$(echo "$query" | jq -r '.[].anlamlarListe[:3][] | 
+  if .ozelliklerListe[0] then "\(.ozelliklerListe[0].tam_adi). \(.anlam)" else .anlam end')
+
+# Requires a notification daemon to be installed
+notify-send -t 60000 "$word -" "$def"
