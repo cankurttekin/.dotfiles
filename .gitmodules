@@ -1,3 +1,3 @@
-[submodule "bin/tmux-sessionizer"]
-	path = bin/tmux-sessionizer
-	url = https://github.com/ThePrimeagen/tmux-sessionizer
+[submodule "scripts/.local/bin/tmux-sessionizer"]
+	path = scripts/.local/bin/tmux-sessionizer
+	url = https://github.com/cankurttekin/tmux-sessionizer
