@@ -28,8 +28,8 @@
 
 #window {
 	background-color: @background;
-	border:           0;
-	padding:          8;
+	border:           1px;
+	padding:          0;
     width: 30%;
     height: 30%;
 }
@@ -38,19 +38,19 @@
 	padding: 5;
 }
 #message {
-	border:       1px dash 0px 0px ;
+	border:       1px dash 0px 0px;
 	border-color: @separatorcolor;
-	padding:      1px ;
+	padding:      1px;
 }
 #textbox {
 	text-color: @foreground;
 }
 #listview {
 	fixed-height: 0;
-	border:       0px; 
+	border:       0px;
 	spacing:      0px;
 	scrollbar:    false;
-	padding:     0px; 
+	padding:     0px;
 }
 #element {
 	border:  0;
@@ -93,13 +93,13 @@
 	text-color:       @foreground;
 }
 #scrollbar {
-	width:        2px ;
+	width:        2px;
 	border:       0;
-	handle-width: 8px ;
+	handle-width: 8px;
 	padding:      0;
 }
 #sidebar {
-	border:       2px dash 0px 0px ;
+	border:       2px dash 0px 0px;
 	border-color: @separatorcolor;
 }
 #button.selected {
@@ -109,7 +109,7 @@
 #inputbar {
 	spacing:    0;
 	text-color: @foreground;
-	padding:    1px ;
+	padding:    1px;
 }
 #case-indicator {
 	spacing:    0;

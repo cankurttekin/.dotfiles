@@ -24,3 +24,5 @@ fi
 if [ -s "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
+
+#export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"

@@ -1,9 +1,7 @@
 buds() {
-  bluetooth on
-  sleep 2
-  bluetoothctl connect "$BT_BUDS_MAC"
-  sleep 2
-  pactl set-default-sink "$BT_BUDS_SINK"
+  bluetoothctl info "$BT_BUDS_MAC" | grep -q "Connected: yes" \
+    && bluetoothctl disconnect "$BT_BUDS_MAC" \
+    || bluetoothctl connect "$BT_BUDS_MAC"
 }
 
 wakehomelab() {

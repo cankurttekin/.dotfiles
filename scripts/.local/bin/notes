@@ -7,10 +7,10 @@ TERMINAL=${TERMINAL:-foot}
 rofi_cmd="rofi -dmenu -i -p"
 
 newnote () {
-  dir="$(command ls -d "$folder" "$folder"*/ 2>/dev/null | $rofi_cmd 'Choose directory:')" || exit 0
+  dir="$(command ls -d "$folder" "$folder"*/ 2>/dev/null | $rofi_cmd 'Choose directory')" || exit 0
   : "${dir:=$folder}"
 
-  name="$(echo "" | $rofi_cmd 'Enter a name:')" || exit 0
+  name="$(echo "" | $rofi_cmd 'Enter a name')" || exit 0
   : "${name:=$(date +%F_%H-%M-%S)}"
 
   setsid -f "$TERMINAL" -e nvim "$dir$name.md" >/dev/null 2>&1

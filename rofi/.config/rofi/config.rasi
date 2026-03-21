@@ -1,4 +1,4 @@
-@theme "./rose-pine.rasi"
+@theme "./rose-pine-moon.rasi"
 configuration {
     show-icons: true;
     matching: "fuzzy";

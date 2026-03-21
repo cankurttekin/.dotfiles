@@ -2,7 +2,7 @@
 {
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 20,
-    "spacing": 0, // Gaps between modules
+    "spacing": 2, // Gaps between modules
     "ipc": true,
     // Choose the order of the modules
     "modules-left": [
@@ -86,20 +86,20 @@
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "custom/wallpaper": {
-        "format": "󰸉 ",
-        "on-click": "~/.config/sway/scripts/wallpaper-picker.sh",
+        "format": "󰸉",
+        "on-click": "wallpaper-picker",
         "tooltip-format": "change wallpaper",
         "interval": 0
     },
     "custom/clipboard": {
-        "format": "󱉨 ",
-        "on-click": "~/.config/sway/scripts/rofi-clipboard.sh",
+        "format": "󱉨",
+        "on-click": "rofi-clipboard",
         "tooltip-format": "show clipboard history",
         "interval": 0
     },
     "custom/emoji": {
         "format": "😊",
-        "on-click": "~/.config/sway/scripts/rofi-emoji-picker.sh",
+        "on-click": "rofi-emoji-picker",
         "tooltip-format": "emoji picker",
         "interval": 0
     },
@@ -203,7 +203,7 @@
         "on-click": "pavucontrol"
     },
     "custom/power": {
-        "format" : "⏻ ",
+        "format" : "⏻",
 		"tooltip": false,
 		"menu": "on-click",
 		"menu-file": "$HOME/.config/waybar/power_menu.xml",

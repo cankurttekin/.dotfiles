@@ -51,17 +51,20 @@ get_dir() {
   fi
 }
 
-PROMPT_COMMAND='PS1=" ${BLUE}⤳ $(get_dir)${RESET}$(parse_git) \$ "'
+PROMPT_COMMAND='PS1=" ${BLUE}$(get_dir)${RESET}$(parse_git) \$ "'
 
 set -o vi
 
-export TERMINAL=foot
+# default programs
+export TERMINAL='foot'
 export EDITOR='nvim'
+export BROWSER='librewolf'
+
 export VISUAL='nvim'
 export HISTSIZE=10000
 export HISTIGNORE="ls:ps:history"
 export HISTTIMEFORMAT="%s "
-#export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoredups
 
 eval "$(fzf --bash)"
 

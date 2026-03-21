@@ -16,8 +16,12 @@ query=$(curl -s --connect-timeout 5 --max-time 10 "https://sozluk.gov.tr/gts?ara
 [[ "$query" == *"error"* || "$query" == *"[]" ]] && notify-send -h string:bgcolor:#bf616a -t 3000 "Hatalı kelime." && exit 0
 
 # Show only first 3 definitions
-def=$(echo "$query" | jq -r '.[].anlamlarListe[:3][] | 
-  if .ozelliklerListe[0] then "\(.ozelliklerListe[0].tam_adi). \(.anlam)" else .anlam end')
+def=$(echo "$query" | jq -r '
+  .[].anlamlarListe[:3][]
+  | (.ozelliklerListe[0].tam_adi // "") as $type
+  | (if $type != "" then "\($type). " else "" end)
+    + (.anlam | gsub("►"; "") | gsub("\\s+"; " ") | ltrimstr(" "))
+    + ".\n"')
 
 # Requires a notification daemon to be installed
-notify-send -t 60000 "$word -" "$def"
+notify-send -t 30000 "$word -" "$def"
