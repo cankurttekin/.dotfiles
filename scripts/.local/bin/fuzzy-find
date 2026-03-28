@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# requires: fd, fzf, bat
+
+target=$(fd --type f --type d \
+  --exclude .git \
+  --exclude node_modules \
+  --exclude dist \
+  --exclude build \
+  --exclude .cache \
+  --exclude .venv \
+  --exclude __pycache__ \
+  --exclude target \
+  --exclude .gradle \
+  2>/dev/null | fzf \
+  --preview '
+    if [ -d {} ]; then
+      ls -a --color {}
+    else
+      bat --style=numbers --color=always {} 2>/dev/null || sed -n "1,200p" {}
+    fi
+  '
+) || exit 0
+
+[[ -z "$target" ]] && exit 0
+
+# if directory → open in nvim
+if [[ -d "$target" ]]; then
+  nvim "$target"
+  exit 0
+fi
+
+# detect MIME type
+mime=$(file --mime-type -b "$target")
+
+case "$mime" in
+  text/*|application/*json*|application/*xml*|application/x-shellscript)
+    nvim "$target"
+    ;;
+  *)
+    xdg-open "$target" >/dev/null 2>&1 &
+    ;;
+esac

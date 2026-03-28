@@ -1,38 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Path to store wallpaper
-IMAGE_PATH="$HOME/.cache/sway_wallpaper.jpg"
+set -euo pipefail
 
-# Generate random index (tune range based on known max)
-RANDOM_INDEX=$((RANDOM % 3810))
+FONT="${FONT:-DejaVu-Sans}"
+BG_COLOR="${BG_COLOR:-black}"
 
-# Fetch the response
-RAW_RESPONSE=$(curl -s "https://www.wikiart.org/en/App/Home/ArtworkOfTheDay?direction=next&index=$RANDOM_INDEX")
+# Fetch artwork info
+INDEX=$((RANDOM % 3810))
+API_URL="https://www.wikiart.org/en/app/home/ArtworkOfTheDay?direction=next&index=$INDEX"
+JSON=$(curl -sf "$API_URL") || { echo "Failed to fetch artwork info"; exit 1; }
+UNESCAPED_JSON=$(echo "$JSON" | jq -r 'fromjson') || { echo "Failed to parse JSON"; exit 1; }
 
-# Step 1: Unwrap the escaped JSON string (remove quotes and unescape)
-UNESCAPED_JSON=$(echo "$RAW_RESPONSE" | sed 's/^"//' | sed 's/"$//' | sed 's/\\"/"/g' | sed 's/\\r\\n/\n/g' | sed 's/\\u003c/</g' | sed 's/\\u003e/>/g')
+TITLE=$(echo "$UNESCAPED_JSON" | jq -r '.Title // empty')
+ARTIST=$(echo "$UNESCAPED_JSON" | jq -r '.ArtistName // empty')
+IMAGE_URL=$(echo "$UNESCAPED_JSON" | jq -r '.PaintingJson.image // empty')
 
-# Step 2: Extract image URL
-IMAGE_URL=$(echo "$UNESCAPED_JSON" | jq -r '.ImageDescription.Url')
-
-# Validate image URL
-if [[ "$IMAGE_URL" == null || -z "$IMAGE_URL" ]]; then
-  echo "Failed to get image URL"
-  echo "Response: $UNESCAPED_JSON"
-  exit 1
+if [[ -z "$TITLE" || -z "$ARTIST" || -z "$IMAGE_URL" ]]; then
+    echo "Missing artwork data"
+    exit 1
 fi
 
-# Download the image
-curl -s -L "$IMAGE_URL" -o "$IMAGE_PATH"
+# Download image to a temp file
+IMAGE_PATH=$(mktemp /tmp/wikiart_wall.XXXXXX.jpg)
+PROCESSED_IMAGE="$HOME/.cache/wikiart_wallpaper.jpg"
+trap 'rm -f "$IMAGE_PATH"' EXIT
 
-echo "IMAGE_URL: $IMAGE_URL"
+curl -sf -o "$IMAGE_PATH" "$IMAGE_URL" || { echo "Failed to download image"; exit 1; }
 
-# Kill existing swaybg instance
-pkill swaybg
+# Get current display resolution from Sway
+read -r DISPLAY_WIDTH DISPLAY_HEIGHT <<< "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | "\(.current_mode.width) \(.current_mode.height)"')"
+if [[ -z "$DISPLAY_WIDTH" || -z "$DISPLAY_HEIGHT" ]]; then
+    echo "Failed to get display resolution"
+    exit 1
+fi
 
-TITLE=$(echo "$UNESCAPED_JSON" | jq -r '.Title')
-ARTIST=$(echo "$UNESCAPED_JSON" | jq -r '.ArtistName')
-notify-send "Wallpaper: $TITLE" "by $ARTIST"
+# Create wallpaper with text, centered image, and black background
+magick "$IMAGE_PATH" \
+    -resize "x${DISPLAY_HEIGHT}" \
+    -background "$BG_COLOR" \
+    -gravity center \
+    -extent "${DISPLAY_WIDTH}x${DISPLAY_HEIGHT}" \
+    -gravity Southeast \
+    -fill white \
+    -undercolor '#00000080' \
+    -font "$FONT" -pointsize 18 \
+    -annotate +12+30 "$TITLE by $ARTIST" \
+    "$PROCESSED_IMAGE" || { echo "ImageMagick processing failed"; exit 1; }
 
-# Set wallpaper
-swaybg -i "$IMAGE_PATH" -m fit
+# Kill existing swaybg instances
+pkill swaybg || true
+
+# Start swaybg with the new wallpaper
+swaybg -m fill -i "$PROCESSED_IMAGE" &

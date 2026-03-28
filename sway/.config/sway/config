@@ -29,7 +29,6 @@ bindsym $mod+c exec rofi-clipboard
 
 bindsym $mod+n exec notes
 
-bindsym $mod+Shift+z exec ~/.config/sway/scripts/zenmode
 ## borders
 default_border pixel 2px
 default_floating_border none

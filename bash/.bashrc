@@ -59,8 +59,8 @@ set -o vi
 export TERMINAL='foot'
 export EDITOR='nvim'
 export BROWSER='librewolf'
-
 export VISUAL='nvim'
+
 export HISTSIZE=10000
 export HISTIGNORE="ls:ps:history"
 export HISTTIMEFORMAT="%s "
@@ -83,32 +83,10 @@ alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
 #alias rm="rm -i"
 alias ytmp="yt-dlp -t mp3 "
 
-extract() {
-  if [ -f "$1" ]; then
-    case "$1" in
-      *.tar.bz2)   tar xjf "$1"   ;;
-      *.tar.gz)    tar xzf "$1"   ;;
-      *.tar.xz)    tar xf "$1"    ;;
-      *.bz2)       bunzip2 "$1"   ;;
-      *.rar)       unrar x "$1"   ;;
-      *.gz)        gunzip "$1"    ;;
-      *.tar)       tar xf "$1"    ;;
-      *.tbz2)      tar xjf "$1"   ;;
-      *.tgz)       tar xzf "$1"   ;;
-      *.zip)       unzip "$1"     ;;
-      *.7z)        7z x "$1"      ;;
-      *) echo "Can't extract '$1'." ;;
-    esac
-  else
-    echo "'$1' is not a valid file."
-  fi
-}
-
 weather() { curl -s "wttr.in/${1:-Ankara}?format=4"; }
 
 # cd up x
 up() { cd $(eval printf '../'%.0s {1..$1}); }
-
 
 # ctrl+d to exit shell but not from tmux session
 function trap_exit_tmux {
@@ -122,40 +100,4 @@ function trap_exit_tmux {
 }
 trap trap_exit_tmux EXIT
 
-fuzzy_find() {
-  local target mime
-
-  target=$(find . -mindepth 1 ! -path '*/.*' 2>/dev/null | fzf \
-    --preview '
-      if [ -d {} ]; then
-        ls -a --color {}
-      else
-        bat --style=numbers --color=always {} 2>/dev/null || sed -n "1,200p" {}
-      fi
-    '
-  ) || return
-
-  [[ -z "$target" ]] && return
-
-  # if directory open in nvim file explorer
-  if [[ -d "$target" ]]; then
-    nvim "$target"
-    return
-  fi
-
-  # detect MIME type
-  mime=$(file --mime-type -b "$target")
-
-  case "$mime" in
-    text/*|application/*json*|application/*xml*|application/x-shellscript)
-      nvim "$target"
-      ;;
-    *)
-      case "$(uname)" in
-        Darwin) open "$target" ;; # here is your macos comp. adventurer i guess
-        Linux)  xdg-open "$target" ;;
-      esac
-      ;;
-  esac
-}
-bind -x '"\C-f": fuzzy_find'
+bind -x '"\C-f": fuzzy-find'
