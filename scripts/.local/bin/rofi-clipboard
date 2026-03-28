@@ -3,6 +3,8 @@
 history_limit=20
 history_file=~/.local/share/clipboard_history
 
+touch "$history_file"
+
 # Get the current clipboard content
 current_clipboard=$(wl-paste)
 
@@ -16,9 +18,12 @@ fi
 tail -n $history_limit "$history_file" > "$history_file.tmp" && mv "$history_file.tmp" "$history_file"
 
 # Show clipboard history in Rofi (most recent entry is at the top)
-chosen=$(tac "$history_file" | rofi -dmenu -p "Clipboard")
+menu=$(echo -e "Clear History\n$(tac "$history_file")")
+chosen=$(echo "$menu" | rofi -dmenu -p "Clipboard")
 
-# If something is chosen, copy it back to clipboard
-if [ ! -z "$chosen" ]; then
+# handle selection
+if [ "$chosen" == "Clear History" ]; then
+    > "$history_file"
+elif [ -n "$chosen" ]; then
     echo -n "$chosen" | wl-copy
 fi
