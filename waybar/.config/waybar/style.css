@@ -93,3 +93,9 @@ label:focus {
     padding-left: 6px;
     padding-right: 6px;
 }
+
+#mpris {
+    padding-left: 6px;
+    padding-right: 6px;
+    color: @subtle;
+}
