@@ -1,5 +1,6 @@
 #!/bin/bash
 WALLDIR="$HOME/Pictures/Wallpapers"
+CONF="$HOME/.config/sway/config.d/wallpaper.conf"
 
 chosen=$(find "$WALLDIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) -print0 \
     | shuf -z \
@@ -13,9 +14,10 @@ listview {columns: 1; lines: 6;}
 element-icon {size: 60px;}')
 
 if [ -n "$chosen" ]; then
-    pkill swaybg
     img_path=$(find "$WALLDIR" -type f -name "$chosen" | head -n 1)
     if [ -n "$img_path" ]; then
+        pkill swaybg
         swaybg -i "$img_path" -m fill &
+        echo "output * bg $img_path fill" > "$CONF"
     fi
 fi

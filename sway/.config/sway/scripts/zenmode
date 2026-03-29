@@ -3,17 +3,19 @@
 STATE="/tmp/zenmode"
 
 if [ -f "$STATE" ]; then
-    #swaymsg "reload"
-    swaymsg '[app_id="foot"] floating disable'
+    # Restore current workspace
+    swaymsg '[workspace=__focused__] floating disable'
+    swaymsg '[workspace=__focused__] border pixel 2'
     swaymsg 'bar mode toggle'
     # idk how to restore the wallpaper so hardcoding it for now
-    swaymsg 'output * bg ~/.dotfiles/wallpaper/rosepine-hi.jpg fill'
-    swaymsg '[app_id="foot"] border pixel 2px'
+    #swaymsg 'output * bg ~/.dotfiles/wallpaper/rosepine-hi.jpg fill'
     rm "$STATE"
 else
     touch "$STATE"
-    swaymsg '[app_id="foot"] floating enable; resize set 1920 1450; move position 320 10'
-    swaymsg '[app_id="foot"] border none'
+    swaymsg '[workspace=__focused__] floating enable'
+    swaymsg '[workspace=__focused__] border none'
+    swaymsg '[workspace=__focused__] resize set 1920 1450'
+    swaymsg '[workspace=__focused__] move position 320 0'
     swaymsg 'output * bg #000000 solid_color'
     swaymsg 'bar mode toggle'
 fi
