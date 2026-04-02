@@ -1,4 +1,4 @@
-vim.opt.clipboard = "unnamedplus"
+--vim.opt.clipboard = "unnamedplus"
 
 vim.opt.guicursor = ""
 
