@@ -10,6 +10,11 @@ vim.keymap.set("n", "<leader>zz", function()
     vim.wo.number = true
     vim.wo.rnu = true
     ColorMyWorld()
+
+    -- turn off sway bar if running sway
+    if vim.env.SWAYSOCK then
+        vim.system({ "swaymsg", "bar", "mode", "toggle" })
+    end
 end, { desc = "Zen Mode wide" })
 
 -- light zen
@@ -24,6 +29,10 @@ vim.keymap.set("n", "<leader>zl", function()
     vim.wo.number = true
     vim.wo.rnu = true
     ColorMyWorld("solarized", "light", false)
+
+    if vim.env.SWAYSOCK then
+        vim.system({ "swaymsg", "bar", "mode", "toggle" })
+    end
 end, { desc = "Zen Mode Solarized light" })
 
 -- narrow zen
@@ -39,4 +48,8 @@ vim.keymap.set("n", "<leader>zZ", function()
     vim.wo.rnu = false
     vim.opt.colorcolumn = "0"
     ColorMyWorld()
+
+    if vim.env.SWAYSOCK then
+        vim.system({ "swaymsg", "bar", "mode", "toggle" })
+    end
 end, { desc = "Zen Mode narrow" })
