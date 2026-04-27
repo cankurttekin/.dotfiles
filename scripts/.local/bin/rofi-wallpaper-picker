@@ -2,12 +2,14 @@
 WALLDIR="$HOME/Pictures/Wallpapers"
 CONF="$HOME/.config/sway/config.d/wallpaper.conf"
 
-chosen=$(find "$WALLDIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) -print0 \
+chosen=$(find "$WALLDIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o \
+                            -iname "*.jpeg" -o -iname "*.jxl" \) -print0 \
     | shuf -z \
     | while IFS= read -r -d '' img; do
 echo -en "$(basename "$img")\0icon\x1f$img\n"
 done | rofi -dmenu -show-icons \
     -p "Select Wallpaper" \
+    -i \
     -matching fuzzy \
     -theme-str '
 listview {columns: 1; lines: 6;}
