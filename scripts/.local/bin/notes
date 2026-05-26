@@ -13,7 +13,7 @@ newnote () {
   name="$(echo "" | $rofi_cmd 'Enter a name')" || exit 0
   : "${name:=$(date +%F_%H-%M-%S)}"
 
-  setsid -f "$TERMINAL" -e nvim "$dir$name.md" >/dev/null 2>&1
+  setsid -f "$TERMINAL" --fullscreen -e nvim "$dir$name.md" >/dev/null 2>&1
 }
 
 selected () {
@@ -26,11 +26,12 @@ selected () {
     } | $rofi_cmd "Notes"
   )
 
+  [ -z "$choice" ] && exit
   case "$choice" in
       New) newnote ;;
-      *.md) setsid -f "$TERMINAL" -e nvim "$folder$choice" >/dev/null 2>&1 ;;
+      *.md) setsid -f "$TERMINAL" --fullscreen -e nvim "$folder$choice" >/dev/null 2>&1 ;;
       *.pdf|*.png|*.jpg|*.jpeg|*.gif) setsid -f xdg-open "$folder$choice" >/dev/null 2>&1 ;;
-      #*) setsid -f xdg-open "$folder$choice" >/dev/null 2>&1 ;;
+      *) setsid -f xdg-open "$folder$choice" >/dev/null 2>&1 ;;
       *) exit ;;
   esac
 }

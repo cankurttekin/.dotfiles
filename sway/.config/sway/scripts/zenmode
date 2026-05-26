@@ -1,21 +1,28 @@
 #!/bin/bash
+# makes focused window floating, centered, 4:3ish and hides the bar to lock in.
 
-STATE="/tmp/zenmode"
+STATE="/tmp/swayzenmode"
+FOCUSED=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .id')
+
+read SW SH <<< $(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) |
+    "\(.current_mode.width) \(.current_mode.height)"')
+H=$SH
+W=$(( SH * 4 / 3 + 150))
+X=$(( (SW - W) / 2 ))
+Y=0
 
 if [ -f "$STATE" ]; then
-    # Restore current workspace
-    swaymsg '[workspace=__focused__] floating disable'
-    swaymsg '[workspace=__focused__] border pixel 2'
-    swaymsg 'bar mode toggle'
-    # idk how to restore the wallpaper so hardcoding it for now
-    #swaymsg 'output * bg ~/.dotfiles/wallpaper/rosepine-hi.jpg fill'
+    swaymsg bar mode dock
+    swaymsg "[con_id=$FOCUSED] floating disable"
+    swaymsg border 2 
     rm "$STATE"
 else
     touch "$STATE"
-    swaymsg '[workspace=__focused__] floating enable'
-    swaymsg '[workspace=__focused__] border none'
-    swaymsg '[workspace=__focused__] resize set 1920 1450'
-    swaymsg '[workspace=__focused__] move position 320 0'
     swaymsg 'output * bg #000000 solid_color'
-    swaymsg 'bar mode toggle'
+    swaymsg bar mode hide
+    swaymsg border none
+    swaymsg "[con_id=$FOCUSED] floating enable"
+    sleep 0.05
+    swaymsg "[con_id=$FOCUSED] resize set $W $H"
+    swaymsg "[con_id=$FOCUSED] move position $X $Y"
 fi

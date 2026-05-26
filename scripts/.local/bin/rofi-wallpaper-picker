@@ -17,9 +17,11 @@ element-icon {size: 60px;}')
 
 if [ -n "$chosen" ]; then
     img_path=$(find "$WALLDIR" -type f -name "$chosen" | head -n 1)
-    if [ -n "$img_path" ]; then
-        pkill swaybg
-        swaybg -i "$img_path" -m fill &
-        echo "output * bg $img_path fill" > "$CONF"
-    fi
+    [ -z "$img_path" ] && exit 0
+
+    mode=$(printf "fill\nfit\nstretch\ntile" | rofi -dmenu -p "Wallpaper mode" -i)
+    [ -z "$mode" ] && exit 0
+
+    swaymsg output "*" bg "$img_path" "$mode"
+    echo "output * bg $img_path $mode" > "$CONF"
 fi
