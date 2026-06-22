@@ -1,7 +1,7 @@
 @import "default"
 
 * {
-	bg: #191724;
+    bg: rgba(25, 23, 36, 0.84);
 	cur: #1f1d2e;
 	fgd: #e0def4;
 	cmt: #6e6a86;
@@ -23,14 +23,15 @@
 	selected-urgent-background: @urgent-background;
 	selected-active-background: @active-background;
 	separatorcolor: @active-background;
-	bordercolor: @ora;
+	bordercolor: @cmt;
 }
 #window {
 	background-color: @background;
-	border: 1px;
-	padding: 0;
-    width: 30%;
-    height: 30%;
+    border-color: @bordercolor;
+	border: 2px;
+	padding: 2px;
+    width: 40%;
+    height: 34%;
 }
 #mainbox {
 	border: 0;
@@ -47,13 +48,13 @@
 #listview {
 	fixed-height: 0;
 	border: 0px;
-	spacing: 0px;
+	spacing: 4px;
 	scrollbar: false;
-	padding: 0px;
+	padding: 2px;
 }
 #element {
 	border:  0;
-	padding: 1px;
+	padding: 2px;
 }
 #element.normal.normal {
 	background-color: @background;
@@ -128,6 +129,6 @@
 #textbox-prompt-colon {
 	expand: false;
 	str: ":";
-	margin: 0px 0.3em 0em 0em;
+	margin: 0px 0.4em 0em 0em;
 	text-color: @grn;
 }

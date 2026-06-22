@@ -1,18 +1,18 @@
 max-history=5
-width=400
-height=380
+width=500
+height=480
 default-timeout=10000
 ignore-timeout=0
 max-visible=5
 layer=overlay
 
-font= BlexMono Nerd Font 12
+font= BlexMono Nerd Font 16
 
 # rose-pine-moon
-background-color=#393552
+background-color=#191724
 text-color=#e0def4
-border-color=#56526e
-progress-color=over #3e8fb0
+border-color=#6e6a86
+progress-color=over #31748f
 [urgency=high]
 border-color=#eb6f92
 

@@ -1,10 +1,9 @@
 local copilot_chat = require("CopilotChat")
 
 copilot_chat.setup({
-  model = "gpt-4.1",
+  --model = "gpt-5-mini",
   temperature = 0.1,
-  auto_insert_mode = false,
-
+  auto_insert_mode = true,
   window = {
     layout = "vertical",
     width = 0.3,

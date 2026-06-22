@@ -46,3 +46,5 @@ vim.g.netrw_winsize = 25 -- width of the netrw window
 
 vim.opt.showmode = false -- dont needed due to statusline
 vim.opt.numberwidth = 2
+
+vim.opt.splitright = true

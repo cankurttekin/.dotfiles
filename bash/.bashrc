@@ -51,7 +51,7 @@ get_dir() {
   fi
 }
 
-PROMPT_COMMAND='PS1=" ${BLUE}$(get_dir)${RESET}$(parse_git) \$ "'
+PROMPT_COMMAND='PS1=" ${BLUE}⤳ $(get_dir)${RESET}$(parse_git) \$ "'
 
 set -o vi
 
