@@ -26,7 +26,7 @@ bindsym $mod+c exec rofi-clipboard
 bindsym $mod+n exec notes
 
 # cursor theme
-seat seat0 xcursor_theme BreezeX-RosePine-Linux 30
+#seat seat0 xcursor_theme BreezeX-RosePine-Linux 30
 
 ## borders
 default_border pixel 2px

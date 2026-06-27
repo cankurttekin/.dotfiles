@@ -13,7 +13,7 @@ window#waybar {
     /* workaround for flickering bug when waybar hidden */
 	background-color: rgba(35, 33, 54, 0.99);
 	/*background-color: rgba(250, 244, 237, 0.99);*/
-    color: @text;
+    color: @subtle;
     border: none;
 }
 
@@ -29,7 +29,7 @@ window#waybar {
 #idle_inhibitor,
 #privacy {
     padding: 0 6px;
-    color: @text;
+    color: @subtle;
 }
 
 #workspaces button {
@@ -40,12 +40,13 @@ window#waybar {
 
 #workspaces button.focused {
     color: @text;
-    background: @highlightlow;
+    background: @highlightLow;
     box-shadow: inset 0 -2px @text;
 }
 
 #workspaces button.urgent {
     color: @love;
+    background: @highlightHigh;
     box-shadow: inset 0 -2px @love;
 }
 
@@ -89,13 +90,9 @@ label:focus {
 }
 
 #custom-wvkbd,
-#custom-power {
-    padding-left: 6px;
-    padding-right: 6px;
-}
-
-#mpris {
-    padding-left: 6px;
-    padding-right: 6px;
-    color: @subtle;
+#custom-power,
+#mpris,
+#clock,
+#language {
+    padding: 0 6px;
 }

@@ -3,9 +3,9 @@ require('telescope').setup {
     defaults = {
         --path_display = { "smart" },
         file_ignore_patterns = { "node_modules", ".git/" },
-        layout_strategy = "horizontal",
+        layout_strategy = "vertical",
         layout_config = {
-            width = 0.99,
+            width = 0.8,
             height = 0.99,
             preview_cutoff = 1,
         },
@@ -36,33 +36,3 @@ vim.keymap.set('n', '<leader>lg', builtin.live_grep, { desc = 'Telescope live gr
 vim.keymap.set('n', '<leader>pr', builtin.oldfiles, { desc = 'Recent files' })
 vim.keymap.set('n', '<leader>pc', builtin.git_commits, { desc = 'Git commits' })
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Search keymaps' })
-
-local opts = { previewer = true }
-vim.keymap.set('n', '<leader>pt', function()
-    opts.previewer = not opts.previewer
-    builtin.find_files(opts)
-end, { desc = 'Toggle Telescope preview' })
-
-vim.keymap.set('n', '<leader>cm', function()
-    require('telescope.builtin').colorscheme({
-        enable_preview = true,
-        attach_mappings = function(prompt_bufnr, map)
-            local actions = require('telescope.actions')
-            local action_state = require('telescope.actions.state')
-
-            local function apply_color()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-
-                if selection then
-                    ColorMyWorld(selection.value)
-                end
-            end
-
-            map('i', '<CR>', apply_color)
-            map('n', '<CR>', apply_color)
-
-            return true
-        end,
-    })
-end, { desc = 'Pick colorscheme (ColorMyWorld)' })

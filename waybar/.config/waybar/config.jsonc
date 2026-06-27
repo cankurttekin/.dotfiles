@@ -8,15 +8,16 @@
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
-        "sway/scratchpad",
-        "mpris"
-    ],
-    "modules-center": [
-        "clock"
-        //"sway/window"
-    ],
-    "modules-right": [
         "idle_inhibitor",
+        "sway/scratchpad",
+        "sway/language",
+        "clock"
+        //"mpris"
+    ],
+    //"modules-center": [
+        //"sway/window"
+    //],
+    "modules-right": [
         //"custom/clipboard",
         //"custom/emoji",
         //"custom/wallpaper",
@@ -28,7 +29,6 @@
         "temperature",
         //"backlight",
         "battery",
-        "sway/language",
         //"custom/power", 
         "custom/wvkbd", 
         "tray"
@@ -38,8 +38,7 @@
          "disable-scroll": false,
          "all-outputs": true,
          "warp-on-scroll": false
-         //"format": "{name}: {icon}",
-         //"format-icons": {
+         //"format": "{name}: {icon}", "format-icons": {
          //    "1": "",
          //    "2": "",
          //    "3": "",
@@ -60,7 +59,7 @@
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
-    "mpris": {
+    /*"mpris": {
         "format": "{player_icon} <i>{artist} - {title}</i>",
         "format-paused": "{status_icon} <i>{artist} - {title}</i>",
         "player-icons": {
@@ -117,6 +116,7 @@
         "tooltip-format": "emoji picker",
         "interval": 0
     },
+    */
     "idle_inhibitor": {
         "format": "{icon} ",
         "format-icons": {
@@ -133,7 +133,7 @@
         // }
     },
     "clock": {
-        "format": "{:%a, %b %d %H:%M}",
+        "format": "<i>{:%a, %b %d %H:%M}</i>",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {
@@ -234,7 +234,6 @@
         "on-click": "pkill wvkbd || wvkbd"
     },
     "sway/language": {
-        "format": "{}",
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     }
 }
