@@ -68,7 +68,9 @@ return {
   { "rcarriga/nvim-dap-ui" },
 
   -- AI
-  --{ "github/copilot.vim" },
-  { "zbirenbaum/copilot.lua", dependencies = { "copilotlsp-nvim/copilot-lsp" } },
-  { "CopilotC-Nvim/CopilotChat.nvim" },
+  { "github/copilot.vim" },
+  --{ "zbirenbaum/copilot.lua", dependencies = { "copilotlsp-nvim/copilot-lsp" } },
+  { "CopilotC-Nvim/CopilotChat.nvim", 
+  dependencies = { { "nvim-lua/plenary.nvim", branch = "master" }, },
+  build = "make tiktoken", },
 }

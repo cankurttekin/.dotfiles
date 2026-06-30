@@ -101,3 +101,7 @@ function trap_exit_tmux {
 trap trap_exit_tmux EXIT
 
 bind -x '"\C-f": fuzzy-find'
+
+
+
+export PATH="$HOME/.config/emacs/bin:$PATH"

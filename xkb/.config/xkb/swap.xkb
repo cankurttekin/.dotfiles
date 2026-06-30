@@ -1,19 +1,14 @@
 xkb_keymap {
     xkb_keycodes { include "evdev+aliases(qwerty)" };
-    xkb_types { include "complete" };
-    xkb_compat { include "complete" };
-    xkb_symbols {
-        include "pc"
-        include "us"
-        include "inet(evdev)"
-
-        #replace key <CAPS> { [ Escape ] };
-        #replace key <ESC> { [ Caps_Lock ] };
+    xkb_types    { include "complete" };
+    xkb_compat   { include "complete" };
+    xkb_symbols  {
+        include "pc+us+tr:2+inet(evdev)+group(alt_shift_toggle)"
 
         replace key <LALT> { [ Super_L ] };
         replace key <LWIN> { [ Alt_L ] };
         
-        replace key <ESC> { [ grave, asciitilde ] };
+        replace key <ESC>  { [ grave, asciitilde ] };
         replace key <TLDE> { [ Escape ] };
 
         replace key <CAPS> { [ Control_L ] };

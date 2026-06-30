@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$#" -eq 0 ]; then
+    echo "Usage: $(basename "$0") <file1> [file2 ...]"
+    exit 1
+fi
+
+command -v kdeconnect-cli >/dev/null || {
+    echo "kdeconnect-cli not found."
+    exit 1
+}
+
+mapfile -t devices < <(
+    kdeconnect-cli -a --id-name-only |
+    awk '{id=$1; $1=""; sub(/^ /,""); print id "|" $0}'
+)
+
+if [ "${#devices[@]}" -eq 0 ]; then
+    echo "No reachable KDE Connect devices found."
+    exit 1
+fi
+
+if [ "${#devices[@]}" -eq 1 ]; then
+    IFS='|' read -r DEVICE_ID DEVICE_NAME <<< "${devices[0]}"
+
+    echo "Device: $DEVICE_NAME"
+    read -rp "Send files to this device? [Y/n] " ans
+
+    if [[ "$ans" =~ ^[Nn]$ ]]; then
+        exit 0
+    fi
+else
+    echo "Select a device:"
+    for i in "${!devices[@]}"; do
+        IFS='|' read -r _ NAME <<< "${devices[$i]}"
+        printf "%d) %s\n" $((i + 1)) "$NAME"
+    done
+
+    read -rp "Choice: " choice
+
+    if ! [[ "$choice" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#devices[@]} )); then
+        echo "Invalid selection."
+        exit 1
+    fi
+
+    IFS='|' read -r DEVICE_ID DEVICE_NAME <<< "${devices[$((choice - 1))]}"
+fi
+
+echo "Sending to '$DEVICE_NAME'..."
+
+kdeconnect-cli -d "$DEVICE_ID" --share "$@"
+
+echo "Done."
