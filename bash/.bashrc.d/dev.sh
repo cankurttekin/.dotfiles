@@ -34,3 +34,6 @@ if [ -s "$HOME/.cargo/env" ]; then
 fi
 
 #export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
+
+export PATH="$HOME/.config/emacs/bin:$PATH"
+export PATH="/home/ck/.local/bin:$PATH"

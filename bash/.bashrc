@@ -51,9 +51,12 @@ get_dir() {
   fi
 }
 
-PROMPT_COMMAND='PS1=" ${BLUE}⤳ $(get_dir)${RESET}$(parse_git) \$ "'
+PROMPT_COMMAND='PS1=" ${BLUE}$(get_dir)${RESET}$(parse_git) \$ "'
 
 set -o vi
+bind 'set show-mode-in-prompt on'
+bind 'set vi-ins-mode-string "\1\033[1;34m\2 ⤳\1\033[0m\2"'
+bind 'set vi-cmd-mode-string "\1\033[1;31m\2 ⤳\1\033[0m\2"'
 
 # default programs
 export TERMINAL='foot'
@@ -101,7 +104,3 @@ function trap_exit_tmux {
 trap trap_exit_tmux EXIT
 
 bind -x '"\C-f": fuzzy-find'
-
-
-
-export PATH="$HOME/.config/emacs/bin:$PATH"
