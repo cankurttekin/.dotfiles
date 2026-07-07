@@ -12,7 +12,7 @@ font= BlexMono Nerd Font 16
 background-color=#191724
 text-color=#e0def4
 border-color=#6e6a86
-progress-color=over #31748f
+progress-color=over #524f67
 [urgency=high]
 border-color=#eb6f92
 

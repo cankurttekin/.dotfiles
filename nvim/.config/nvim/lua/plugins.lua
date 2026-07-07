@@ -1,12 +1,12 @@
 return {
   -- UI and appearance
-  { "rktjmp/lush.nvim" },
+  --{ "rktjmp/lush.nvim" },
   --{ "nvim-lualine/lualine.nvim" },
-  { "folke/zen-mode.nvim" },
+  --{ "folke/zen-mode.nvim" },
 
   -- Colorschemes
-  { "maxmx03/solarized.nvim" },
   { "rose-pine/neovim" },
+  --{ "maxmx03/solarized.nvim" },
 
   -- Utilities
   { "nvim-lua/plenary.nvim" },
@@ -14,11 +14,10 @@ return {
   { "tpope/vim-fugitive" },
   { "lewis6991/gitsigns.nvim" },
   { "MunifTanjim/nui.nvim" },
-  { "echasnovski/mini.icons" },
+  --{ "echasnovski/mini.icons" },
   { "stevearc/dressing.nvim" },
-  --{ "folke/which-key.nvim" },
+  { "folke/which-key.nvim" },
   { "cankurttekin/pinit-nvim" },
-  { "ThePrimeagen/vim-be-good" },
 
   -- Navigation
   { 'nvim-telescope/telescope.nvim', version = '0.2.1', dependencies = { 'nvim-lua/plenary.nvim',
@@ -40,7 +39,7 @@ return {
       require("colorizer").setup({ "*" }, {
         RGB = true,
         RRGGBB = true,
-        names = true,
+        names = false,
         RRGGBBAA = true,
         rgb_fn = true,
         hsl_fn = true,

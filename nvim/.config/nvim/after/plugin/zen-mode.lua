@@ -1,3 +1,4 @@
+--[[
 -- wide zen
 vim.keymap.set("n", "<leader>zz", function()
     require("zen-mode").setup({
@@ -53,3 +54,4 @@ vim.keymap.set("n", "<leader>zZ", function()
         vim.system({ "swaymsg", "bar", "mode", "toggle" })
     end
 end, { desc = "Zen Mode narrow" })
+]]--
