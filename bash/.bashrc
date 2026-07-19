@@ -26,29 +26,29 @@ MAGENTA="\[\e[35m\]"
 # this is not the best way to do this, its slow and expensive.
 # but it works for now
 parse_git() {
-  git rev-parse --is-inside-work-tree &>/dev/null || return
+    git rev-parse --is-inside-work-tree &>/dev/null || return
 
-  local branch ahead behind arrows dirty
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
-  [ -z "$branch" ] && branch=":unknown"
+    local branch ahead behind arrows dirty
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+    [ -z "$branch" ] && branch=":unknown"
 
-  ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
-  behind=$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0)
-  [ "$ahead" -gt 0 ] && arrows="↑$ahead"
-  [ "$behind" -gt 0 ] && arrows="${arrows}↓$behind"
+    ahead=$(git rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
+    behind=$(git rev-list --count HEAD..@{u} 2>/dev/null || echo 0)
+    [ "$ahead" -gt 0 ] && arrows="↑$ahead"
+    [ "$behind" -gt 0 ] && arrows="${arrows}↓$behind"
 
-  git diff --quiet --ignore-submodules HEAD &>/dev/null || dirty="+"
-  [ -z "$dirty" ] && dirty="✓"
+    git diff --quiet --ignore-submodules HEAD &>/dev/null || dirty="+"
+    [ -z "$dirty" ] && dirty="✓"
 
-  echo " ${MAGENTA}git:${RESET}(${CYAN}${branch}${RESET}${YELLOW}${arrows:+$arrows}${RESET}|${GREEN}${dirty}${RESET})"
+    echo " ${MAGENTA}git:${RESET}(${CYAN}${branch}${RESET}${YELLOW}${arrows:+$arrows}${RESET}|${GREEN}${dirty}${RESET})"
 }
 
 get_dir() {
-  if [ "$PWD" = "$HOME" ]; then
-    echo "~"
-  else
-    echo "${PWD##*/}"
-  fi
+    if [ "$PWD" = "$HOME" ]; then
+        echo "~"
+    else
+        echo "${PWD##*/}"
+    fi
 }
 
 PROMPT_COMMAND='PS1=" ${BLUE}$(get_dir)${RESET}$(parse_git) \$ "'
@@ -60,6 +60,7 @@ bind 'set vi-cmd-mode-string "\1\033[1;31m\2 ⤳\1\033[0m\2"'
 
 # default programs
 export TERMINAL='foot'
+export TERM_PROGRAM='foot'
 export EDITOR='nvim'
 export BROWSER='librewolf'
 export VISUAL='nvim'
@@ -77,6 +78,7 @@ eval "$(fzf --bash)"
 alias vim="nvim"
 alias cim="vim"
 alias bim="vim"
+alias vim.="vim ."
 alias :q="exit"
 alias pls='sudo $(history -p !!)' #repeat the last command with sudo
 alias untar='tar -zxvf ' 
@@ -85,6 +87,8 @@ alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=
 alias fuz='nvim $(fzf --preview="bat --color=always --style=numbers {}")'
 #alias rm="rm -i"
 alias ytmp="yt-dlp -t mp3 "
+alias foot-dark='pkill -USR1 -x foot'
+alias foot-light='pkill -USR2 -x foot'
 
 weather() { curl -s "wttr.in/${1:-Ankara}?format=4"; }
 

@@ -1,12 +1,12 @@
 @import "default"
 
 * {
-    bg: rgba(25, 23, 36, 0.84);
-	cur: #1f1d2e;
+    bg: rgba(35, 33, 54, 0.74);
+	cur: #2a273f;
 	fgd: #e0def4;
 	cmt: #6e6a86;
 	cya: #9ccfd8;
-	grn: #31748f;
+	grn: #3e8fb0;
 	ora: #ebbcba;
 	pur: #c4a7e7;
 	red: #eb6f92;

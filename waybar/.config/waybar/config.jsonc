@@ -8,28 +8,28 @@
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
-        "idle_inhibitor",
         "sway/scratchpad",
-        "sway/language",
-        "clock"
-        //"mpris"
+        "idle_inhibitor",
+        "mpris"
     ],
-    //"modules-center": [
+    "modules-center": [
         //"sway/window"
-    //],
+        "clock"
+    ],
     "modules-right": [
         //"custom/clipboard",
         //"custom/emoji",
         //"custom/wallpaper",
         "pulseaudio",
         "network",
-        "power-profiles-daemon",
         "cpu",
         "memory",
         "temperature",
         //"backlight",
+        "power-profiles-daemon",
         "battery",
         //"custom/power", 
+        "sway/language",
         "custom/wvkbd", 
         "tray"
     ],
@@ -59,7 +59,7 @@
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
-    /*"mpris": {
+    "mpris": {
         "format": "{player_icon} <i>{artist} - {title}</i>",
         "format-paused": "{status_icon} <i>{artist} - {title}</i>",
         "player-icons": {
@@ -116,7 +116,6 @@
         "tooltip-format": "emoji picker",
         "interval": 0
     },
-    */
     "idle_inhibitor": {
         "format": "{icon} ",
         "format-icons": {

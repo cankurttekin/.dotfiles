@@ -6,7 +6,6 @@ return {
 
   -- Colorschemes
   { "rose-pine/neovim" },
-  --{ "maxmx03/solarized.nvim" },
 
   -- Utilities
   { "nvim-lua/plenary.nvim" },
@@ -27,27 +26,11 @@ return {
   { "ThePrimeagen/harpoon", branch = "harpoon2", dependencies = { "nvim-lua/plenary.nvim" } },
 
   -- Syntax
-  { "nvim-treesitter/nvim-treesitter", tag = "v0.10.0", build = ":TSUpdate" },
-  { "nvim-treesitter/nvim-treesitter-textobjects" },
-  { "nvim-treesitter/nvim-treesitter-context" },
+  --{ "nvim-treesitter/nvim-treesitter", tag = "v0.10.0", build = ":TSUpdate" },
+  --{ "nvim-treesitter/nvim-treesitter-textobjects" },
+  --{ "nvim-treesitter/nvim-treesitter-context" },
   { "MeanderingProgrammer/render-markdown.nvim" },
-
-  -- Colorizer
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup({ "*" }, {
-        RGB = true,
-        RRGGBB = true,
-        names = false,
-        RRGGBBAA = true,
-        rgb_fn = true,
-        hsl_fn = true,
-        css = true,
-        css_fn = true,
-      })
-    end,
-  },
+  { "catgoose/nvim-colorizer.lua", event = "BufReadPre", opts = {} },
 
   -- LSP and autocompletion
   { "neovim/nvim-lspconfig" },

@@ -1,6 +1,8 @@
 #image=~/Pictures/Wallpapers/
 #scaling=fill
 
+font=IBMPlexMono-Regular
+
 # Background color
 color=#191724
 

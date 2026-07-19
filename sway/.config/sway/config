@@ -13,6 +13,10 @@ set $right l
 ## terminal
 set $term foot
 
+## display timeouts
+set $lock_timeout 300
+set $screen_timeout 60
+
 ## launcher
 set $rofi_cmd rofi -terminal '$term'
 # combined list of the apps with desktop files and
@@ -29,14 +33,20 @@ bindsym $mod+n exec notes
 bindsym $mod+e exec emacs
 
 # cursor theme
-#seat seat0 xcursor_theme BreezeX-RosePine-Linux 30
+seat seat0 xcursor_theme BreezeX-RosePine-Linux 36
 
 ## borders
-default_border pixel 2px
+default_border pixel 1px
 default_floating_border none
 smart_borders on
 titlebar_padding 1
 titlebar_border_thickness 0
+# class                 border      bg          text        indicator   child_border
+client.focused          #ea9a97     #191724     #e0def4    #eb6f92     #ea9a97
+client.unfocused        #26233a     #191724     #908caa    #26233a     #26233a
+client.focused_inactive #403d52     #1f1d2e     #e0def4    #403d52     #403d52
+client.urgent           #eb6f92     #eb6f92     #191724    #eb6f92     #eb6f92
+client.placeholder      #26233a     #191724     #6e6a86    #26233a     #26233a
 
 ### Key bindings
     # Start a terminal
