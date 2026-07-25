@@ -53,7 +53,7 @@ client.placeholder      #26233a     #191724     #6e6a86    #26233a     #26233a
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
 
     # Start launcher
     bindsym $mod+d exec $menu

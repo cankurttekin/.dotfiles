@@ -36,3 +36,4 @@ vim.keymap.set('n', '<leader>lg', builtin.live_grep, { desc = 'Telescope live gr
 vim.keymap.set('n', '<leader>pr', builtin.oldfiles, { desc = 'Recent files' })
 vim.keymap.set('n', '<leader>pc', builtin.git_commits, { desc = 'Git commits' })
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Search keymaps' })
+vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = 'Find Resume', })
