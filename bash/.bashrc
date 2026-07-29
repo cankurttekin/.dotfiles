@@ -54,6 +54,7 @@ get_dir() {
 PROMPT_COMMAND='PS1=" ${BLUE}$(get_dir)${RESET}$(parse_git) \$ "'
 
 set -o vi
+bind -m vi-command '"v": ' # prevent visual mode opening editor in vi mode
 bind 'set show-mode-in-prompt on'
 bind 'set vi-ins-mode-string "\1\033[1;34m\2 ⤳\1\033[0m\2"'
 bind 'set vi-cmd-mode-string "\1\033[1;31m\2 ⤳\1\033[0m\2"'
@@ -66,7 +67,8 @@ export BROWSER='librewolf'
 export VISUAL='nvim'
 
 export HISTSIZE=10000
-export HISTIGNORE="ls:ps:history"
+export HISTFILESIZE=200000
+export HISTIGNORE="ls:ps:pwd:cd:exit:history"
 export HISTTIMEFORMAT="%s "
 export HISTCONTROL=ignoredups
 

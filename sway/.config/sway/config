@@ -42,7 +42,7 @@ smart_borders on
 titlebar_padding 1
 titlebar_border_thickness 0
 # class                 border      bg          text        indicator   child_border
-client.focused          #ea9a97     #191724     #e0def4    #eb6f92     #ea9a97
+client.focused          #c4a7e7     #191724     #e0def4    #eb6f92     #c4a7e7
 client.unfocused        #26233a     #191724     #908caa    #26233a     #26233a
 client.focused_inactive #403d52     #1f1d2e     #e0def4    #403d52     #403d52
 client.urgent           #eb6f92     #eb6f92     #191724    #eb6f92     #eb6f92
