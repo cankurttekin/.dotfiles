@@ -10,6 +10,7 @@
         "sway/mode",
         "sway/scratchpad",
         "idle_inhibitor",
+        "privacy",
         "mpris"
     ],
     "modules-center": [
@@ -123,6 +124,20 @@
             "deactivated": ""
         }
     },
+    "privacy": {
+        //"transition-duration": 250,
+        "modules": [
+            { "type": "screenshare", "tooltip": true },
+            { "type": "audio-out", "tooltip": true },
+            { "type": "audio-in", "tooltip": true },
+            { "type": "location", "icon-name": "location-services-active-symbolic" }
+        ],
+        "ignore-monitor": true,
+        //"ignore": [
+            //{ "type": "audio-in", "name": "cava" },
+            //{ "type": "screenshare", "name": "obs" }
+        //]
+    },
     "tray": {
         // "icon-size": 21,
         "spacing": 10
@@ -132,7 +147,7 @@
         // }
     },
     "clock": {
-        "format": "<i>{:%a, %b %d %H:%M}</i>",
+        "format": "{:%a, %b %d %H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {

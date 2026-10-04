@@ -31,10 +31,16 @@ window#waybar {
 #wireplumber,
 #temperature,
 #tray,
-#idle_inhibitor,
-#privacy {
+#idle_inhibitor {
     padding: 0 6px;
     color: @subtle;
+}
+
+#privacy,
+#privacy-item,
+#privacy-item.audio-out,
+#privacy-item.location {
+    color: @gold;
 }
 
 #workspaces button {
@@ -49,6 +55,8 @@ window#waybar {
     box-shadow: inset 0 -2px @text;
 }
 
+#privacy-item.audio-in,
+#privacy-item.screenshare,
 #workspaces button.urgent {
     color: @love;
     background: @highlightHigh;

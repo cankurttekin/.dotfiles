@@ -15,7 +15,7 @@ set $term foot
 
 ## display timeouts
 set $lock_timeout 300
-set $screen_timeout 60
+set $screen_timeout 300 
 
 ## launcher
 set $rofi_cmd rofi -terminal '$term'
@@ -30,13 +30,13 @@ bindsym $mod+c exec rofi-clipboard
 bindsym $mod+n exec notes
 
 # emacs
-bindsym $mod+e exec emacs
+#bindsym $mod+e exec emacs
 
 # cursor theme
 seat seat0 xcursor_theme BreezeX-RosePine-Linux 36
 
 ## borders
-default_border pixel 1px
+default_border pixel 2px
 default_floating_border none
 smart_borders on
 titlebar_padding 1
@@ -79,6 +79,7 @@ client.placeholder      #26233a     #191724     #6e6a86    #26233a     #26233a
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
 
+bindsym $mod+m workspace back_and_forth
 # Workspaces:
 set $ws_web  "1"
 set $ws_term "2"
@@ -89,7 +90,7 @@ set $ws_incognito "10"
     # Switch to workspace
     bindsym $mod+t workspace $ws_term
     bindsym $mod+w workspace $ws_web
-    bindsym $mod+m workspace $ws_media
+    #bindsym $mod+m workspace $ws_media
     bindsym $mod+g workspace $ws_gimp
     bindsym $mod+x workspace $ws_incognito
     

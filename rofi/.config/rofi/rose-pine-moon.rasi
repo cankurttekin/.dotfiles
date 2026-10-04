@@ -30,8 +30,8 @@
     border-color: @bordercolor;
 	border: 2px;
 	padding: 2px;
-    width: 40%;
-    height: 34%;
+    width: 34%;
+    height: 38%;
 }
 #mainbox {
 	border: 0;
