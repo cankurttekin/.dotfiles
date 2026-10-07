@@ -82,7 +82,7 @@ alias cim="vim"
 alias bim="vim"
 alias vim.="vim ."
 alias :q="exit"
-alias pls='sudo $(history -p !!)' #repeat the last command with sudo
+alias pls='sudo $(history -p !!)' # repeat the last command with sudo
 alias untar='tar -zxvf ' 
 alias whoami="whoami && curl ident.me && echo"
 alias speedtest="wget http://st-ankara-1.turksatkablo.com.tr:8080/download?size=51200000 -O /dev/null"
