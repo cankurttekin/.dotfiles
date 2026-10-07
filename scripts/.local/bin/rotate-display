@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # get focused output name
 OUTPUT=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused == true) | .name')

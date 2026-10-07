@@ -1,7 +1,7 @@
 return {
   -- UI and appearance
   --{ "rktjmp/lush.nvim" },
-  --{ "nvim-lualine/lualine.nvim" },
+  { "nvim-lualine/lualine.nvim" },
   --{ "folke/zen-mode.nvim" },
 
   -- Colorschemes
